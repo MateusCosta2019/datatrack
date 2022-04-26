@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Title -->
+  <title>Login</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/img/favicon.ico">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS Implementing Plugins -->
+  <link rel="stylesheet" href="../static/css/theme.min.css">
+
+  <!-- CSS Front Template -->
+  <link rel="stylesheet" href="../static/css/theme.min.css">
+  <link rel="stylesheet" href="../static/css/style_login.css">
+
+  <link rel="preload" href="./app/static/assets/css/theme.min.css" data-hs-appearance="default" as="style">
+
+</head>
+<body>
+    <main id="content" role="main" class="main">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col" >
+            <div class="container overflow-hidden mt-2">
+              <div class="row gy-6">
+
+                <div id="logo" class="col-10 mt-8">
+                  <img src="../static/img/logos/logo_datatrack.png" class="img-fluid" alt="Responsive image" style="width: 153px; height: 50px;">
+                </div>
+                <div class="col-10">
+                  <h1 class="display-5">Login</h1>
+                  <p>Bem vindo de volta! Por favor entre com seu email e senha</p>
+                </div>
+
+                <form id="formcontrol" class="justify-content-center" novalidate="" action="{{ url_for('login') }}" method="post">
+                  <div class="col-10">
+                    <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="Email" aria-label="email@address.com" required>
+                    <span class="invalid-feedback">Por favor informe um email valido.</span>
+                  </div>
+
+                  <div class="col-10 mt-3">
+                    <input type="password" class="form-control form-control-lg" name="senha" id="signinSrEmail" tabindex="1" placeholder="Senha" aria-label="email@address.com" required>
+                    <span class="invalid-feedback">Por favor informe um email valido.</span>
+                  </div>
+                   
+                  <div class="col-10 mt-3">
+                    <div class="row gy-5">
+                      <div class="col-6">
+                        <div class="p-0">
+                          <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
+                          <label class="form-check-label" for="termsCheckbox">
+                            Lembre de mim
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="p-0">
+                            <span class="d-flex justify-content-end align-items-center">
+                              <a class="form-label-link mb-0" href="./authentication-reset-password-basic.html">Esqueceu sua senha?</a>
+                            </span>      
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-10 mt-8">
+                    <button id="btnlogin" type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                  </div>
+
+                  <div class="col-10 mt-7">
+                    <div class="row gy-5">
+                      <div class="col-12">
+                        <div class="text-center">
+                          <div class="mb-5">
+                            <p>Não tem uma conta? <a class="link" href="/registro">Cadastra-se aqui</a></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+          <div id="conteudomobile" class="col" style="background-image: url(../static/img/background/background_login.png);"></div>
+        </div>
+      </div>
+    </main>
+<script src="../static/js/app-tamplate-vendas.js"></script>
+</body>
+</html>

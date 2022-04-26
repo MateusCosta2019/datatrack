@@ -1,0 +1,27 @@
+#btnlogin{
+    width: 300px; 
+    border-radius: 9px; 
+    background: #2F3D91;
+}
+
+@media only screen and (max-width: 1000px) {
+    #logo {
+        margin-left: 64px;
+    }
+    #btnlogin{
+        width: 211px;
+    }
+
+    #conteudomobile{
+        display: none;
+    }
+
+    #formcontrol{
+        margin-left: 20px;
+    }
+  }
+
+li{
+    list-style: none;
+}
+

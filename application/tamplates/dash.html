@@ -1,0 +1,265 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../static/img/favicon.ico">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="../static/css/conexoes-vendor.min.css">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="../static/css/style-dashboard.css">
+    <link rel="stylesheet" href="../static/css/style-conexoes.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+</head>
+
+<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl footer-offset">
+
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
+      <div class="navbar-nav-wrap">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="./index.html" aria-label="Front">
+          <img class="navbar-brand-logo" src="../static/img/report..png" alt="Logo" style="margin-left: 40px; margin-top: 15px;">
+        </a>
+        <!-- End Logo -->
+
+        <div class="navbar-nav-wrap-content-end">
+          <!-- Navbar -->
+          <ul class="navbar-nav">
+            <div class="form-group input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+              <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+          </div>
+            <li class="nav-item">
+              <!-- Account -->
+              <div class="dropdown">
+                <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                  <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
+                    <span class="avatar-initials">{{avatar}}</span>
+                  </div>
+                </a>
+  
+                <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
+                  <div class="dropdown-item-text">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
+                        <span class="avatar-initials">{{avatar}}</span>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h5 class="mb-0">{{session.username}}</h5>
+                        <p class="card-text text-body">{{email}}</p>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="dropdown-divider"></div>
+
+                  <a class="dropdown-item" href="{{url_for('profile')}}">Perfil</a>
+                  <a class="dropdown-item" href="#">Settings</a>  
+                  <a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a>
+                </div>
+              </div>
+              <!-- End Account -->
+            </li>
+          </ul>
+          <!-- End Navbar -->
+        </div>
+
+      </div>
+    </header>
+    <!-- ========== HEADER ========== -->
+    
+    <!-- aside -->
+    <aside id="aside" class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-bordered bg-white navbar-vertical-aside-initialized">
+      <div class="navbar-vertical-container">
+        <div class="navbar-vertical-footer-offset">
+
+          <!-- Logo -->
+          <a class="navbar-brand" href="./index.html" aria-label="Front">
+            <img class="navbar-brand-logo" src="../static/img/logos/logo_datatrack.png" alt="Logo" data-hs-theme-appearance="default">
+          </a>
+          <!-- End Logo -->
+
+          <!-- Content -->
+          <div class="navbar-vertical-content">
+            <div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
+              <!-- Collapse -->
+              <div class="nav-item">
+                <a class="nav-link active" href="#navbarVerticalMenuDashboards" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuDashboards" aria-expanded="false" aria-controls="navbarVerticalMenuDashboards">
+                  <i class="bi-house-door nav-icon"></i>
+                  <span class="nav-link-title">Dashboards</span>
+                </a>
+  
+                <div id="navbarVerticalMenuDashboards" class="nav-collapse collapse show" data-bs-parent="#navbarVerticalMenu" hs-parent-area="#navbarVerticalMenu" >
+                  <a class="nav-link " href="#">Recentes</a>
+                  <a class="nav-link " href="#">Compartilhados</a>
+                  <a class="nav-link " href="#">Criado por mim</a>
+                </div>
+              </div>
+
+              <!-- End Collapse -->
+              <!-- Collapse -->
+            <!-- Collapse -->
+
+            <div id="navbarVerticalMenuPagesMenu">  
+              <div class="nav-item">
+                <a class="nav-link " href="/conexao" data-placement="left">
+                  <i class="bi-key nav-icon"></i>
+                  <span class="nav-link-title">Fonte de dados</span>
+                </a>
+              </div>
+
+              <div class="nav-item">
+                <a class="nav-link " href="/equipes" data-placement="left">
+                  <i class="bi-eye nav-icon"></i>
+                  <span class="nav-link-title">Equipe</span>
+                </a>
+              </div>
+
+              <div class="nav-item">
+                <a class="nav-link " href="/tamplates" data-placement="left">
+                  <i class="bi-box-seam nav-icon"></i>
+                  <span class="nav-link-title">Tamplates</span>
+                </a>
+              </div>
+            </div>
+            <!-- End Collapse -->
+        </div>
+          </div>
+          <!-- End Content -->
+
+        </div>
+      </div>
+    </aside>
+    <!-- fim aside -->
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main" class="main">
+      <br>
+      <!-- Content -->
+      <div class="content container-fluid">
+        <div class="row justify-content-lg-center">
+          <div class="col-lg-12">
+  
+            <!-- Nav -->
+            <div class="js-nav-scroller hs-nav-scroller-horizontal mb-5"> 
+              <ul class="nav align-items-center">
+                <li class="nav-item">
+                  <!-- Profile Header -->
+                  <div class="text-center">
+        
+                    <h1 class="page-header-title">{{saudacao}}, {{session.username}}</h1>
+
+                  </div>
+                  <!-- End Profile Header -->
+                </li>
+  
+                <li class="nav-item ms-auto">
+                  <div class="d-flex gap-2">
+                    <!-- Form Check -->
+                    <div class="form-check form-check-switch">
+                        <a class="btn btn-primary" href="{{url_for('tamplates')}}">
+                          <i class="bi bi-plus-square-dotted"></i> Novo report
+                        </a>
+                    </div>
+                    <!-- End Form Check -->
+                  </div>
+                </li>
+                
+              </ul>
+            </div>
+            <!-- End Nav -->
+    
+            <!-- conteudos -->
+            <div class="tab-content" id="connectionsTabContent">
+                <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                  <!-- cards -->
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                        <div class="col-xl">
+
+                            <div class="js-fancybox row gx-3">
+
+                              {% for row in records %}
+                              <div class="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5">
+                                
+                                <div class="card card-sm card-hover-shadow h-100">
+                                  <img class="card-img-top" src="../static/img/cards/cards image.jpg" alt="Image Description">
+              
+                                  <!-- Body -->
+                                  <div class="card-body">
+                                    <div class="mb-3">
+      
+                                      <h4 class="mb-1">{{row.NOME_DASHBOARD}}</h4>
+                                      <span class="created">Criado em {{row.data_criacao}}</span>
+                                
+                                    </div>
+                                    <a class="stretched-link" href="{{row.URL}}"></a>
+                                  </div>
+                                  
+
+                                </div>
+                                
+                              </div>
+                              {% endfor %}
+                            </div>
+
+                          </div>
+                      </div>           
+                    </div>
+                </div>
+                <!-- cards -->
+            <!-- End Connections -->              
+                </div>
+            </div>
+            <!-- End conteudos -->
+
+            <!-- Mensagem caso n tenha nada -->
+            <div class="content container-fluid">
+              <div class="row justify-content-sm-center text-center py-10">
+                <div class="col-sm-7 col-md-5">
+                  <h1>{{h1}}</h1>
+                  <p>{{p}}</p>
+                </div>
+              </div>
+              
+            </div>
+            <!-- End Mensagem caso n tenha nada -->
+
+          <!-- End Col -->
+          </div>
+        <!-- End Row -->
+        </div>
+      <!-- End Content -->
+      </div>
+      <!-- Footer -->
+  
+      <div class="footer">
+        <div class="row justify-content-between align-items-center">
+          <div class="col">
+            <p class="fs-6 mb-0">© <span class="d-none d-sm-inline-block">2022 Datacloud</span></p>
+          </div>
+          <!-- End Col -->
+          <!-- End Col -->
+        </div>
+        <!-- End Row -->
+      </div>
+  
+      <!-- End Footer -->
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+    <script>
+      $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+    </script>
+</body>
+</html>

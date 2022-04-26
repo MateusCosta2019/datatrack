@@ -1,0 +1,137 @@
+
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+#header{
+  background-color: #F4F6FA;
+}
+
+body {
+  margin: 0;
+  text-align: left;
+  background-color: #F4F6FA; }
+
+#sidebar {
+  min-width: 100px;
+  max-width: 100px;
+  background: #F4F6FA;
+  color: #fff;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  position: relative;
+  border-right: 1px solid #ECEDF1;
+}
+
+#sidebar.active {
+  margin-left: -100px; }
+
+#sidebar.active .custom-menu {
+  margin-right: -50px; }
+
+@media (max-width: 991.98px) {
+
+  #sidebar {
+    margin-left: -100px; }
+
+  #sidebar.active {
+    margin-left: 0; }
+
+  #sidebar .custom-menu {
+    margin-right: -50px !important;
+    top: 8px !important; } 
+
+}
+
+#sidebar .custom-menu {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  margin-right: -20px;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #sidebar #sidebarCollapse {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none; } 
+}
+
+#sidebar .custom-menu .btn {
+width: 40px;
+height: 40px;
+border-radius: 50%; }
+
+#sidebar .custom-menu .btn.btn-primary {
+background: #FFFFFF;
+border-color: #F4F6FA; }
+
+#sidebar .custom-menu .btn.btn-primary:hover, #sidebar .custom-menu .btn.btn-primary:focus {
+  background: #FFFFFF !important;
+  border-color: #F4F6FA !important; }
+
+@media (max-width: 991.98px) {
+  #sidebarCollapse span {
+    display: none; } }
+
+#content {
+  width: 100%;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
+
+.created{
+  font-size: 11px;
+}
+
+.nav-link{
+  list-style: none;
+}
+
+.intem1{
+  margin-top: 10px;
+}
+
+.navbar-nav-wrap-content-end{
+  margin-top: 230px;
+  margin-left: 6px;
+}
+
+.nav-link:active{
+  color: #786EC8;
+}
+
+.navbarVerticalMenuPagesMenu{
+  margin-left: 18px;
+}
+
+#logobaixo{
+  width: 0px; 
+  height: 0px; 
+}
+
+@media only screen and (max-width: 1000px) {
+  #logobaixo {
+    width: 125px; 
+    height: 37px; 
+    align-items: center;
+  }
+  .navbar-nav-wrap-content-end{
+    margin-top: 290px;
+  }
+}
+
+#msgnd{
+  margin-top: -50px;
+}

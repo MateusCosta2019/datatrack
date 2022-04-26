@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../static/img/favicon.ico">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="../static/css/lading_page/conexoes-vendor.min.css">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="../static/css/lading_page/theme.min.css">
+    <link rel="stylesheet" href="../static/css/lading_page/theme.min.css">
+
+    <link rel="stylesheet" href="../static/css/tamplates/facebookads.css">
+    <link rel="stylesheet" href="../static/css/lading_page/style-conexoes.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+
+</head>
+<body>
+
+    <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
+        <div class="navbar-nav-wrap">
+            <div class="dropdown">
+            <button class="btn" type="button" id="dropmenusecondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span style="font-size: 30px; color: #32312F;"><i class="bi-grid-3x3-gap-fill"></i></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropmenusecondary">
+                <a class="dropdown-item" href="{{url_for('profile')}}">Criar alerta</a>
+                <a class="dropdown-item" href="#">Receber por email</a>  
+                <a class="dropdown-item" href="{{ url_for('logout') }}">Compartilhar</a>
+            </div>
+
+            </div>
+            <!-- Name dash -->
+            <h3 class="mt-1">Facebook Ads <small class="text-muted">desempenho da campanha</small></h3>
+            <div class="navbar-nav-wrap-content-end">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item d-none d-sm-inline-block">
+                      <div class="dropdown">
+                        <button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-dropdown-animation="" aria-expanded="false">
+                          <i class="bi bi-calendar3"></i>
+                        </button>
+          
+                        <div class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="navbarNotificationsDropdown" style="width: 25rem; opacity: 1;">
+                          <!-- Header -->
+                          <div class="card-header card-header-content-between">
+                            <h4 class="card-title mb-0">Notifications</h4>
+                          </div>
+                          <!-- End Header -->
+          
+                          <!-- Body -->
+                          <form action="{{ url_for('facebookinsights') }}" method="post">
+                            <div class="card-body-height">
+                              <div class="tab-pane fade show active" id="notificationNavOne" role="tabpanel" aria-labelledby="notificationNavOne-tab">
+                                
+                                <ul class="list-group list-group-flush navbar-card-list-group">                                                           
+                                  <li class="list-group-item form-check-select">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                      <label class="form-check-label" for="exampleRadios1">
+                                        Hoje
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                      <label class="form-check-label" for="exampleRadios2">
+                                        Ontem
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                                      <label class="form-check-label" for="exampleRadios3">
+                                        Últimos 7 dias
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
+                                      <label class="form-check-label" for="exampleRadios4">
+                                        Últimos 14 dias
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="option5">
+                                      <label class="form-check-label" for="exampleRadios5">
+                                        Últimos 30 dias
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="option6">
+                                      <label class="form-check-label" for="exampleRadios6">
+                                        Esta semana
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="option7">
+                                      <label class="form-check-label" for="exampleRadios7">
+                                        Semana passada
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios8" value="option8">
+                                      <label class="form-check-label" for="exampleRadios8">
+                                        Este mês
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios9" value="option9  ">
+                                      <label class="form-check-label" for="exampleRadios9">
+                                        Mês passado
+                                      </label>
+                                    </div>
+                                  </li>
+                                  
+                                </ul>
+                                
+                              </div>
+                            </div>
+
+                            <div class="card-footer">
+                              <button type="submit" class="btn btn-primary">Atualizar</button>
+                            </div>
+                          </form>
+
+                        </div>
+                          <!-- End Body -->
+          
+                          <!-- Card Footer -->
+                          
+                          <!-- End Card Footer -->
+                      </div>
+                    </li>
+                    <!-- download button -->
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <!-- Notification -->
+                        <div class="dropdown">
+                        <button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                            <i class="bi bi-cloud-download"></i>
+                        </button>
+                        </div>
+                        <!-- End Notification -->
+                    </li>
+                    <!-- end download button -->
+
+                    <!-- Email button -->
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <!-- Apps -->
+                        <div class="dropdown">
+                        <button type="button" class="btn btn-icon btn-ghost-secondary rounded-circle" id="navbarAppsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="">
+                            <i class="bi bi-envelope-plus"></i>
+                        </button>
+                        </div>
+                        <!-- End Apps -->
+                    </li>
+                    <!-- end Email button -->
+
+                    <!-- Share button -->
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <!-- Apps -->
+                        <div class="dropdown">
+                        <button type="button" class="btn btn-icon btn-ghost-secondary rounded-circle" id="navbarAppsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="">
+                            <i class="bi bi-share"></i>
+                        </button>
+                        </div>
+                        <!-- End Apps -->
+                    </li>
+                    <!-- end Share button -->
+
+                    <li class="nav-item">
+                        <!-- Account -->
+                        <div class="dropdown">
+                            <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                            <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
+                                <span class="avatar-initials">MR</span>
+                            </div>
+                            </a>
+            
+                            <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
+                            <div class="dropdown-item-text">
+                                <div class="d-flex align-items-center">
+                                <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
+                                    <span class="avatar-initials">{{avatar}}</span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-0">{{session.username}}</h5>
+                                    <p class="card-text text-body">{{email}}</p>
+                                </div>
+                                </div>
+                            </div>
+            
+                            <div class="dropdown-divider">Dashboard</div>
+                            <div>
+                                
+                            </div>
+                            <a class="dropdown-item" href="{{url_for('profile')}}">Perfil</a>
+                            <a class="dropdown-item" href="#">Settings</a>  
+                
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a>
+                            
+                            </div>
+                        </div>
+                        <!-- End Account -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main id="content" role="main" class="main">
+    
+        <div class="content container-fluid">
+
+          <div class="row">
+            <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+              <!-- Card -->
+              <a class="card card-hover-shadow h-100" href="#">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Total de curtidas</h6>
+    
+                  <div class="row align-items-center gx-2 mb-1">
+                    <div class="col-6">
+                      <h2 class="card-title text-inherit">1,000</h2>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-6">
+                      <!-- Chart -->
+                      <div class="chartjs-custom" style="height: 3rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                                  &quot;type&quot;: &quot;line&quot;,
+                                  &quot;data&quot;: {
+                                     &quot;labels&quot;: [&quot;1 May&quot;,&quot;2 May&quot;,&quot;3 May&quot;,&quot;4 May&quot;,&quot;5 May&quot;,&quot;6 May&quot;,&quot;7 May&quot;,&quot;8 May&quot;,&quot;9 May&quot;,&quot;10 May&quot;,&quot;11 May&quot;,&quot;12 May&quot;,&quot;13 May&quot;,&quot;14 May&quot;,&quot;15 May&quot;,&quot;16 May&quot;,&quot;17 May&quot;,&quot;18 May&quot;,&quot;19 May&quot;,&quot;20 May&quot;,&quot;21 May&quot;,&quot;22 May&quot;,&quot;23 May&quot;,&quot;24 May&quot;,&quot;25 May&quot;,&quot;26 May&quot;,&quot;27 May&quot;,&quot;28 May&quot;,&quot;29 May&quot;,&quot;30 May&quot;,&quot;31 May&quot;],
+                                     &quot;datasets&quot;: [{
+                                      &quot;data&quot;: [21,20,24,20,18,17,15,17,18,30,31,30,30,35,25,35,35,40,60,90,90,90,85,70,75,70,30,30,30,50,72],
+                                      &quot;backgroundColor&quot;: [&quot;rgba(55, 125, 255, 0)&quot;, &quot;rgba(255, 255, 255, 0)&quot;],
+                                      &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                      &quot;borderWidth&quot;: 2,
+                                      &quot;pointRadius&quot;: 0,
+                                      &quot;pointHoverRadius&quot;: 0
+                                    }]
+                                  },
+                                  &quot;options&quot;: {
+                                     &quot;scales&quot;: {
+                                       &quot;yAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }],
+                                       &quot;xAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }]
+                                     },
+                                    &quot;hover&quot;: {
+                                      &quot;mode&quot;: &quot;nearest&quot;,
+                                      &quot;intersect&quot;: false
+                                    },
+                                    &quot;tooltips&quot;: {
+                                      &quot;postfix&quot;: &quot;k&quot;,
+                                      &quot;hasIndicator&quot;: true,
+                                      &quot;intersect&quot;: false
+                                    }
+                                  }
+                                }" style="display: block; width: 88px; height: 48px;" width="176" height="96">
+                        </canvas>
+                      </div>
+                      <!-- End Chart -->
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <span class="badge bg-soft-success text-success">
+                    <i class="bi-graph-up"></i> 12.5%
+                  </span>
+                  <span class="text-body fs-6 ms-1">from 70,104</span>
+                </div>
+              </a>
+              <!-- End Card -->
+            </div>
+    
+            <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+              <!-- Card -->
+              <a class="card card-hover-shadow h-100" href="#">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Total de cliques</h6>
+    
+                  <div class="row align-items-center gx-2 mb-1">
+                    <div class="col-6">
+                      <h2 class="card-title text-inherit">100</h2>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-6">
+                      <!-- Chart -->
+                      <div class="chartjs-custom" style="height: 3rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                                  &quot;type&quot;: &quot;line&quot;,
+                                  &quot;data&quot;: {
+                                     &quot;labels&quot;: [&quot;1 May&quot;,&quot;2 May&quot;,&quot;3 May&quot;,&quot;4 May&quot;,&quot;5 May&quot;,&quot;6 May&quot;,&quot;7 May&quot;,&quot;8 May&quot;,&quot;9 May&quot;,&quot;10 May&quot;,&quot;11 May&quot;,&quot;12 May&quot;,&quot;13 May&quot;,&quot;14 May&quot;,&quot;15 May&quot;,&quot;16 May&quot;,&quot;17 May&quot;,&quot;18 May&quot;,&quot;19 May&quot;,&quot;20 May&quot;,&quot;21 May&quot;,&quot;22 May&quot;,&quot;23 May&quot;,&quot;24 May&quot;,&quot;25 May&quot;,&quot;26 May&quot;,&quot;27 May&quot;,&quot;28 May&quot;,&quot;29 May&quot;,&quot;30 May&quot;,&quot;31 May&quot;],
+                                     &quot;datasets&quot;: [{
+                                      &quot;data&quot;: [21,20,24,20,18,17,15,17,30,30,35,25,18,30,31,35,35,90,90,90,85,100,120,120,120,100,90,75,75,75,90],
+                                      &quot;backgroundColor&quot;: [&quot;rgba(55, 125, 255, 0)&quot;, &quot;rgba(255, 255, 255, 0)&quot;],
+                                      &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                      &quot;borderWidth&quot;: 2,
+                                      &quot;pointRadius&quot;: 0,
+                                      &quot;pointHoverRadius&quot;: 0
+                                    }]
+                                  },
+                                  &quot;options&quot;: {
+                                     &quot;scales&quot;: {
+                                       &quot;yAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }],
+                                       &quot;xAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }]
+                                     },
+                                    &quot;hover&quot;: {
+                                      &quot;mode&quot;: &quot;nearest&quot;,
+                                      &quot;intersect&quot;: false
+                                    },
+                                    &quot;tooltips&quot;: {
+                                      &quot;postfix&quot;: &quot;%&quot;,
+                                      &quot;hasIndicator&quot;: true,
+                                      &quot;intersect&quot;: false
+                                    }
+                                  }
+                                }" width="176" height="96" style="display: block; width: 88px; height: 48px;">
+                        </canvas>
+                      </div>
+                      <!-- End Chart -->
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <span class="badge bg-soft-success text-success">
+                    <i class="bi-graph-up"></i> 1.7%
+                  </span>
+                  <span class="text-body fs-6 ms-1">from 29.1%</span>
+                </div>
+              </a>
+              <!-- End Card -->
+            </div>
+    
+            <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+              <!-- Card -->
+              <a class="card card-hover-shadow h-100" href="#">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Engajamento</h6>
+    
+                  <div class="row align-items-center gx-2 mb-1">
+                    <div class="col-6">
+                      <h2 class="card-title text-inherit">100.000</h2>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-6">
+                      <!-- Chart -->
+                      <div class="chartjs-custom" style="height: 3rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                                  &quot;type&quot;: &quot;line&quot;,
+                                  &quot;data&quot;: {
+                                     &quot;labels&quot;: [&quot;1 May&quot;,&quot;2 May&quot;,&quot;3 May&quot;,&quot;4 May&quot;,&quot;5 May&quot;,&quot;6 May&quot;,&quot;7 May&quot;,&quot;8 May&quot;,&quot;9 May&quot;,&quot;10 May&quot;,&quot;11 May&quot;,&quot;12 May&quot;,&quot;13 May&quot;,&quot;14 May&quot;,&quot;15 May&quot;,&quot;16 May&quot;,&quot;17 May&quot;,&quot;18 May&quot;,&quot;19 May&quot;,&quot;20 May&quot;,&quot;21 May&quot;,&quot;22 May&quot;,&quot;23 May&quot;,&quot;24 May&quot;,&quot;25 May&quot;,&quot;26 May&quot;,&quot;27 May&quot;,&quot;28 May&quot;,&quot;29 May&quot;,&quot;30 May&quot;,&quot;31 May&quot;],
+                                     &quot;datasets&quot;: [{
+                                      &quot;data&quot;: [25,18,30,31,35,35,60,60,60,75,21,20,24,20,18,17,15,17,30,120,120,120,100,90,75,90,90,90,75,70,60],
+                                      &quot;backgroundColor&quot;: [&quot;rgba(55, 125, 255, 0)&quot;, &quot;rgba(255, 255, 255, 0)&quot;],
+                                      &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                      &quot;borderWidth&quot;: 2,
+                                      &quot;pointRadius&quot;: 0,
+                                      &quot;pointHoverRadius&quot;: 0
+                                    }]
+                                  },
+                                  &quot;options&quot;: {
+                                     &quot;scales&quot;: {
+                                       &quot;yAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }],
+                                       &quot;xAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }]
+                                     },
+                                    &quot;hover&quot;: {
+                                      &quot;mode&quot;: &quot;nearest&quot;,
+                                      &quot;intersect&quot;: false
+                                    },
+                                    &quot;tooltips&quot;: {
+                                      &quot;postfix&quot;: &quot;%&quot;,
+                                      &quot;hasIndicator&quot;: true,
+                                      &quot;intersect&quot;: false
+                                    }
+                                  }
+                                }" width="176" height="96" style="display: block; width: 88px; height: 48px;">
+                        </canvas>
+                      </div>
+                      <!-- End Chart -->
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <span class="badge bg-soft-danger text-danger">
+                    <i class="bi-graph-down"></i> 4.4%
+                  </span>
+                  <span class="text-body fs-6 ms-1">from 61.2%</span>
+                </div>
+              </a>
+              <!-- End Card -->
+            </div>
+    
+            <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+              <!-- Card -->
+              <a class="card card-hover-shadow h-100" href="#">
+                <div class="card-body">
+                  <h6 class="card-subtitle">Curtidas na Página por ADS</h6>
+    
+                  <div class="row align-items-center gx-2 mb-1">
+                    <div class="col-6">
+                      <h2 class="card-title text-inherit">92,913</h2>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-6">
+                      <!-- Chart -->
+                      <div class="chartjs-custom" style="height: 3rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                                  &quot;type&quot;: &quot;line&quot;,
+                                  &quot;data&quot;: {
+                                     &quot;labels&quot;: [&quot;1 May&quot;,&quot;2 May&quot;,&quot;3 May&quot;,&quot;4 May&quot;,&quot;5 May&quot;,&quot;6 May&quot;,&quot;7 May&quot;,&quot;8 May&quot;,&quot;9 May&quot;,&quot;10 May&quot;,&quot;11 May&quot;,&quot;12 May&quot;,&quot;13 May&quot;,&quot;14 May&quot;,&quot;15 May&quot;,&quot;16 May&quot;,&quot;17 May&quot;,&quot;18 May&quot;,&quot;19 May&quot;,&quot;20 May&quot;,&quot;21 May&quot;,&quot;22 May&quot;,&quot;23 May&quot;,&quot;24 May&quot;,&quot;25 May&quot;,&quot;26 May&quot;,&quot;27 May&quot;,&quot;28 May&quot;,&quot;29 May&quot;,&quot;30 May&quot;,&quot;31 May&quot;],
+                                     &quot;datasets&quot;: [{
+                                      &quot;data&quot;: [21,20,24,15,17,30,30,35,35,35,40,60,12,90,90,85,70,75,43,75,90,22,120,120,90,85,100,92,92,92,92],
+                                      &quot;backgroundColor&quot;: [&quot;rgba(55, 125, 255, 0)&quot;, &quot;rgba(255, 255, 255, 0)&quot;],
+                                      &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                      &quot;borderWidth&quot;: 2,
+                                      &quot;pointRadius&quot;: 0,
+                                      &quot;pointHoverRadius&quot;: 0
+                                    }]
+                                  },
+                                  &quot;options&quot;: {
+                                     &quot;scales&quot;: {
+                                       &quot;yAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }],
+                                       &quot;xAxes&quot;: [{
+                                         &quot;display&quot;: false
+                                       }]
+                                     },
+                                    &quot;hover&quot;: {
+                                      &quot;mode&quot;: &quot;nearest&quot;,
+                                      &quot;intersect&quot;: false
+                                    },
+                                    &quot;tooltips&quot;: {
+                                      &quot;postfix&quot;: &quot;k&quot;,
+                                      &quot;hasIndicator&quot;: true,
+                                      &quot;intersect&quot;: false
+                                    }
+                                  }
+                                }" width="176" height="96" style="display: block; width: 88px; height: 48px;">
+                        </canvas>
+                      </div>
+                      <!-- End Chart -->
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <span class="badge bg-soft-secondary text-body">0.0%</span>
+                  <span class="text-body fs-6 ms-1">from 2,913</span>
+                </div>
+              </a>
+              <!-- End Card -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-5 mb-3 mb-lg-5">
+              <!-- Card -->
+              <div class="card h-100">
+                <!-- Header -->
+                <div class="card-header card-header-content-between">
+                  <h4 class="card-header-title">IMPRESSÕES <small class="text-muted">(Últimos 30 dias)</small></h4>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-info-circle"></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
+                      <span class="dropdown-header">O número de vezes que qualquer conteúdo da sua Página ou <br>
+                        sobre ela apareceu na tela de uma pessoa. Isso inclui publicações, <br>
+                        stories, anúncios, além de outros conteúdos ou informações da sua Página.</span>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body">
+                    <div id="chart"></div>
+                </div>
+                <!-- End Body -->
+
+              </div>
+              <!-- End Card -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-7 mb-3 mb-lg-5">
+              <!-- Card -->
+              <div class="card h-100">
+                <!-- Header -->
+                <div class="card-header card-header-content-sm-between">
+                  <h4 class="card-header-title mb-2 mb-sm-0">VISITAS NA SUA PAGINA</h4>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-info-circle"></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
+                      <span class="dropdown-header">	O número de vezes que sua Página foi <br>visualizada por pessoas no Facebook.</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body">
+                  <!-- Bar Chart -->
+                    <div id="Spark1" style="min-height: 233.012px;">
+
+                    </div>
+                  <!-- End Bar Chart -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Card -->
+            </div>
+            <!-- End Col -->
+          </div>
+        </div>
+                
+    </main>
+
+</body>
+
+<script>
+  var page_impressions = JSON.parse('{{ impressoes | tojson | safe}}');
+  var page_views_total = JSON.parse('{{ visitas | tojson | safe}}');
+  console.log(page_views_total)
+  // dados_vendas_por_mes
+  var options = {
+  chart: {
+      height: 350,
+      type: 'line',
+  },
+  dataLabels: {
+      enabled: false
+  },
+  series: [{
+      name: "Impressões",
+      data: page_impressions
+  }],
+  xaxis: {
+      categories: page_impressions
+  },
+  noData: {
+      text: 'Loading...'
+  }
+  }
+
+  var chart = new ApexCharts(
+  document.querySelector("#chart"),
+  options
+  );
+  chart.render();
+  
+    // dados_vendas_por_mes
+  var options = {
+  chart: {
+      height: 350,
+      type: 'line',
+  },
+  dataLabels: {
+      enabled: false
+  },
+  series: [{
+      name: "Visitas",
+      data: page_views_total
+  }],
+  xaxis: {
+      categories: page_views_total
+  },
+  noData: {
+      text: 'Loading...'
+  }
+  }
+
+  var chart = new ApexCharts(
+  document.querySelector("#Spark1"),
+  options
+  );
+  chart.render();
+
+</script>
+
+
+</html>
