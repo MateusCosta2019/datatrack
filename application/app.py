@@ -7,8 +7,8 @@ from configparser import ConfigParser
 # importa modulos criados
 import modulos.periodo as dashboardapp
 from modulos.deleta import deleta_dashboard
-from modulos.fun_SQL import cadastro, conexoes, cadastro_adm, mostra_equipe
-from modulos.conector_facebookads import page_impressions, page_views_total
+from modulos.fun_SQL import cadastro, conexoes, cadastro_adm, mostra_equipe, compartilha
+from modulos.conector_facebook import page_impressions, media_gender, metricas, media_age, page_views_total, page_fans, page_fans_last_month, clicks_on_page, fans_groth
 
 # configura conexão com DB
 ini_config = str(Path('application\\config\\config.ini').resolve())
@@ -28,7 +28,6 @@ try:
     app.config['MYSQL_DB'] = config.get('DB','database')
     
     mysqldata = MySQL(app)
-    print('Conexão realizada com sucesso')
 
 except Exception as erro:
     print("ERRO: MYSQL-erro-code", erro)
@@ -90,6 +89,32 @@ def dashboard():
         deleta_dashboard(id_user=id_user, nome_delete= request.form['delete'])
         
     return render_template('dash.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
+
+@app.route('/dashboard_share_with_you', methods =['GET', 'POST'])
+def dashboard_compartilhados():   
+    h1 = ''
+    p = ''
+    cursor = mysqldata.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    saudacao = dashboardapp.saudacao()
+    id_user = session['id']
+    avatar = session['username'][0]
+
+    # Pega dashboards salvos
+    cursor.execute(f'SELECT ID_TAMPLATE FROM tbd_compartilhados WHERE ID_USUARIO_COMP = 19;')
+    ID_TAMPLATE_ = cursor.fetchone()
+    ID_TAMPLATE = ID_TAMPLATE_
+    print(ID_TAMPLATE)
+
+    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE tbd_tamplates.ID = 1')
+    records = cursor.fetchall()
+    if records:
+        records=records
+    else:
+        h1 = 'Que pena, ninguém compratilhou nenhum dashboard com você'
+            
+    return render_template('dash_compatilhados.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
+
 
 @app.route('/conexao', methods =['GET', 'POST'])
 def conexao():
@@ -220,10 +245,11 @@ def registro():
 
 
 # # tamplates 
-@app.route('/facebookinsights', methods =['GET', 'POST'])
-def facebookinsights():
+@app.route('/facebookinsights/<user>', methods =['GET', 'POST'])
+def facebookinsights(user):
+    msg = ''
+    model = user
     radiobutton = 'last_year'
-
     if request.method == 'POST' and 'radiobutton' in request.form:
         periodo = request.form['radiobutton']
         
@@ -233,8 +259,26 @@ def facebookinsights():
         elif periodo == 'Mês passado':
             radiobutton = 'last_month'
 
+    if request.method == 'POST' and 'nome' in request.form:
+        email = request.form['email']
 
-    return render_template('facebookads.html', impressoes=page_impressions(), visitas=page_views_total())
+        try:
+            compartilha()
+        except Exception as err:
+            msg="Não foi possivel compartilhar o dashboard com esse usuario pelo seeguite motivo:"+ err
+    
+    
+    return render_template('facebookads.html', model,
+    msg = msg,
+    impressoes=page_impressions(), 
+    visitas=page_views_total(),
+    page_fans = page_fans(),
+    page_fans_last_28d = page_fans_last_month(),
+    clicks_on_page = clicks_on_page(),
+    fans_groth = fans_groth(),
+    metricas=metricas(),
+    media_age=media_age(),
+    media_gender=media_gender())
 
 
 if __name__ == "__main__":

@@ -1,6 +1,3 @@
-from ast import Pass
-from fileinput import filename
-import os 
 from modulos.conecta_db import conecta_db
 import logging 
 from datetime import datetime
@@ -58,3 +55,24 @@ def mostra_equipe(id):
     empresa = empresa_usuario[0]
 
     return empresa
+
+def dash_compratilhados():
+    cursor.execute(f'SELECT ID_TAMPLATE FROM tbd_compartilhados WHERE ID_USUARIO_COMP = 19;')
+    ID_TAMPLATE = cursor.fetchone()
+    ID_TAMPLATE = ID_TAMPLATE[0]
+    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE ID_TAMPLATES = {ID_TAMPLATE}')
+    DADOS_DASHBOARD = cursor.fetchall()
+
+
+def compartilha():
+    email = 't1304mts@prestadorcbmp.com.br'
+    id = 1
+    id_tamplate_ = 1
+    cursor.execute(f'SELECT ID FROM tbd_usuario WHERE EMAIL = "{email}"')
+    id_user = cursor.fetchone()
+    id_user_ = id_user[0]
+    cursor.execute('INSERT INTO tbd_compartilhados (ID_USUARIO_CRIADOR, ID_USUARIO_COMP, ID_TAMPLATE) VALUES (%s, %s, %s);', (id, id_user_, id_tamplate_))
+    connection.commit()
+
+compartilha()
+    
