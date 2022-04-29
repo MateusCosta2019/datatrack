@@ -5,37 +5,37 @@ from datetime import datetime
 import json 
 
 params = dict()
-params['page_token'] = 'EAAUTdastuisBAL2jMMBl0fhlEuFGqEZAUc9zKITlkLtEgsCoiBHvuBWweIj8mNIB3l02sm3UF2CW8KW7eLmtN1YGmO63O7KJl8ZCVv5CgU5WIdmW8z6f6m95YYMVMGJH0lBVUE02JRG8iZA18O9rtNxLZCrcowOBZAdsNFHT5ZBKR2qMeNG1WLTICPgslQ7SCNDRqblKV11Idr4PU9ZBcjv'        # not an actual access token
+params['page_token'] = 'EAAUTdastuisBAPVL7tmJSarMzpmottO3cqjHIGErGghETgw1IuI0zDS78vErCyCgSBa0UZCJQMgBOyfZCY2vudykASeBVZCMyg6nfZCF66rL03ys3ZCoGzua2CWYjpsPV6aLZB0PQvDZBiQycejqGzlVu75xQwsmpQmKZAxEzXt4A5OgH58Q3XeqjP1alNqVsN5viN8o8nqZC5AZDZD'        # not an actual access token
 params['page_id'] = '623594861616145' 
 graph = facebook.GraphAPI(access_token=params['page_token'], version="3.1")
 
-filtro_data = 'last_year'
+filtro_data = 'last_month'
 
-def page_impressions():
-    page_impressions = graph.get_connections(id=params['page_id'], connection_name='insights', 
-                                            metric='page_impressions',
-                                            date_preset=filtro_data,
-                                            period='day',
-                                            show_description_from_api_doc=False)
+def post_alcance(filtro):
+    Impressoes = graph.get_connections(id=params['page_id'], 
+                                    connection_name='insights', 
+                                    metric='page_impressions',
+                                    date_preset=filtro)
 
-    dados = page_impressions['data'][0]['values']
-    df = pd.DataFrame(dados)
-    df['end_time'] = pd.to_datetime(df['end_time'], errors='coerce')
-    df['end_time'] = df['end_time'].dt.strftime('%m-%d-%y')
-    df['end_time'] = pd.to_datetime(df['end_time'])
-    dfs = df.resample(rule='M', on='end_time').agg({'value':'sum'}).reset_index()
-    
-    
-    dfs['end_time'] = dfs['end_time'].dt.strftime('%b-%y')
-    dfs.rename({"end_time": "x", "value": "y"}, axis=1, inplace=True)
-    dad = dfs.to_dict(orient='records')
-    
-    return dad
+    dados_Impressoes = Impressoes['data'][0]['values']
+    df_impressoes = pd.DataFrame(dados_Impressoes, columns=['value', 'end_time'])
 
-def page_views_total():
+    df_impressoes['end_time'] = pd.to_datetime(df_impressoes['end_time'], errors='coerce')
+    df_impressoes['end_time'] = df_impressoes['end_time'].dt.strftime('%m-%d-%y')
+    df_impressoes['end_time'] = pd.to_datetime(df_impressoes['end_time'])
+    agraga = df_impressoes.resample(rule='D', on='end_time').agg({'value':'sum'}).reset_index()
+
+
+    agraga['end_time'] = agraga['end_time'].dt.strftime('%d-%m-%y')
+    agraga.rename({"end_time": "x", "value": "y"}, axis=1, inplace=True)
+    dados_finais = agraga.to_dict(orient='records')
+    
+    return dados_finais
+
+def page_views_total(filtro):
     page_views_total = graph.get_connections(id=params['page_id'], connection_name='insights', 
                                             metric='page_views_total',
-                                            date_preset=filtro_data,
+                                            date_preset=filtro,
                                             show_description_from_api_doc=False)
 
     dados = page_views_total['data'][0]['values']
@@ -95,10 +95,10 @@ def clicks_on_page():
     dados_finais = df_page_total_actions.to_dict(orient='records')
     return dados_finais
 
-def fans_groth():
+def fans_groth(filtro):
     page_fans = graph.get_connections(id=params['page_id'], connection_name='insights', 
                                             metric='page_fans',
-                                            date_preset='last_30d',
+                                            date_preset=filtro,
                                             show_description_from_api_doc=False)
 
     dados = page_fans['data'][0]['values']
@@ -114,10 +114,10 @@ def fans_groth():
     dados_finais = df_page_fans.to_dict(orient='records')   
     return dados_finais
 
-def media_age():
+def media_age(filtro):
     page_fans_gender_age = graph.get_connections(id=params['page_id'], connection_name='insights', 
                                             metric='page_fans_gender_age',
-                                            date_preset='this_month',
+                                            date_preset=filtro,
                                             show_description_from_api_doc=False)
 
     dados = page_fans_gender_age['data'][0]['values']
@@ -128,23 +128,24 @@ def media_age():
 
     df_page_fans_gender_age[['Sexo', 'Idade']] = df_page_fans_gender_age['idade'].str.split('.', 1, expand=True)
     del df_page_fans_gender_age['idade']
+    df_page_fans_gender_age.reset_index(drop=True, inplace=True)
 
+    df2 = df_page_fans_gender_age.groupby(df_page_fans_gender_age.Sexo)
+    feminino = df2.get_group('F')
+    maculino = df2.get_group('M') 
+    del feminino['Sexo']
+    del maculino['Sexo']
+    feminino.rename({"Seguidores": "y", "Idade": "x"}, axis=1, inplace=True)
+    maculino.rename({"Seguidores": "y", "Idade": "x"}, axis=1, inplace=True)
+    dados_finaism = maculino.to_dict(orient='records')
+    dados_finaisf = feminino.to_dict(orient='records')
 
+    return([dados_finaisf, dados_finaism])
 
-    df_medias = df_page_fans_gender_age.groupby(['Idade'], as_index=False)['Seguidores'].sum()
-    base = sum(df_medias['Seguidores'])
-    df_medias['Média'] = df_medias['Seguidores']/base*100
-    df_medias['Média'] = round(df_medias['Média'], 2)
-    del df_medias['Seguidores']
-    df_medias['Idade'].replace({'-': ' a '}, regex=True, inplace=True)
-    df_medias.rename({"Idade": "x", "Média": "y"}, axis=1, inplace=True)
-    dados_finais = df_medias.to_dict(orient='records')
-    return dados_finais
-
-def media_gender():
+def media_gender(filtro):
     page_fans_gender_age = graph.get_connections(id=params['page_id'], connection_name='insights', 
                                             metric='page_fans_gender_age',
-                                            date_preset='this_month',
+                                            date_preset=filtro,
                                             show_description_from_api_doc=False)
 
     dados = page_fans_gender_age['data'][0]['values']
@@ -212,4 +213,37 @@ def metricas():
     dados_finais = df_dados.to_dict(orient='records')
 
 
+    return dados_finais
+
+def total_actions(filtro):
+    page_total_actions = graph.get_connections(id=params['page_id'], connection_name='insights', 
+                                            metric='page_total_actions',
+                                            date_preset=filtro,
+                                            show_description_from_api_doc=False)
+    dados = page_total_actions['data'][0]['values']
+    df = pd.DataFrame(dados)
+    del df['end_time']
+    dados_finais = sum(df['value'])
+    return dados_finais
+
+def total_engajamento():
+    page_post_engagements = graph.get_connections(id=params['page_id'], connection_name='insights', 
+                                            metric='page_post_engagements',
+                                            date_preset='last_year',
+                                            show_description_from_api_doc=False)
+    dados = page_post_engagements['data'][0]['values']
+    df = pd.DataFrame(dados)
+    del df['end_time']
+    dados_finais = sum(df['value'])
+    return dados_finais
+
+def total_engajamento_post():
+    post_engaged_users = graph.get_connections(id=params['page_id'], connection_name='insights', 
+                                            metric='post_engaged_users',
+                                            date_preset='last_year',
+                                            show_description_from_api_doc=False)
+    dados = post_engaged_users['data'][0]['values']
+    df = pd.DataFrame(dados)
+    del df['end_time']
+    dados_finais = sum(df['value'])
     return dados_finais

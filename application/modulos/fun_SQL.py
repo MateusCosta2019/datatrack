@@ -74,5 +74,13 @@ def compartilha():
     cursor.execute('INSERT INTO tbd_compartilhados (ID_USUARIO_CRIADOR, ID_USUARIO_COMP, ID_TAMPLATE) VALUES (%s, %s, %s);', (id, id_user_, id_tamplate_))
     connection.commit()
 
-compartilha()
+
+# def cadastro():
+#     cursor.execute(f'SELECT URL FROM tbd_tamplates WHERE NOME_TAMPLATE = "Facebook Insights"')
+#     resultador = cursor.fetchone()
+#     idtamplate = resultador['ID']
+#     # cursor.execute('INSERT INTO tbd_salvos (NOME_DASHBOARD, ID_USUARIO, ID_TAMPLATES, ID_CONEXAO) VALUES (%s,%s,%s,%s)', (nome_dash,user, idtamplate, "1"))
+#     # cursor.commit()
+#     print(idtamplate)
     
+# cadastro()

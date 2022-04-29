@@ -8,7 +8,7 @@ from configparser import ConfigParser
 import modulos.periodo as dashboardapp
 from modulos.deleta import deleta_dashboard
 from modulos.fun_SQL import cadastro, conexoes, cadastro_adm, mostra_equipe, compartilha
-from modulos.conector_facebook import page_impressions, media_gender, metricas, media_age, page_views_total, page_fans, page_fans_last_month, clicks_on_page, fans_groth
+from modulos.conector_facebook import post_alcance, media_gender, total_engajamento, metricas, total_actions, media_age, page_views_total, page_fans, page_fans_last_month, clicks_on_page, fans_groth
 
 # configura conexão com DB
 ini_config = str(Path('application\\config\\config.ini').resolve())
@@ -76,7 +76,7 @@ def dashboard():
     avatar = session['username'][0]
 
     # Pega dashboards salvos
-    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE ID_USUARIO = {id_user}')
+    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, tbd_salvos.URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE ID_USUARIO = {id_user}')
     records = cursor.fetchall()
     if records:
         records=records
@@ -101,12 +101,12 @@ def dashboard_compartilhados():
     avatar = session['username'][0]
 
     # Pega dashboards salvos
-    cursor.execute(f'SELECT ID_TAMPLATE FROM tbd_compartilhados WHERE ID_USUARIO_COMP = 19;')
+    cursor.execute(f'SELECT ID_TAMPLATE FROM tbd_compartilhados WHERE ID_USUARIO_COMP = {id_user};')
     ID_TAMPLATE_ = cursor.fetchone()
     ID_TAMPLATE = ID_TAMPLATE_
     print(ID_TAMPLATE)
 
-    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE tbd_tamplates.ID = 1')
+    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, tbd_salvos.URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE tbd_tamplates.ID = 1')
     records = cursor.fetchall()
     if records:
         records=records
@@ -245,40 +245,56 @@ def registro():
 
 
 # # tamplates 
-@app.route('/facebookinsights/<user>', methods =['GET', 'POST'])
-def facebookinsights(user):
+@app.route('/facebookinsights', methods =['GET', 'POST'])
+def facebookinsights():
     msg = ''
-    model = user
-    radiobutton = 'last_year'
-    if request.method == 'POST' and 'radiobutton' in request.form:
-        periodo = request.form['radiobutton']
-        
-        if periodo == 'Ontem':
-            radiobutton = 'yesterday'
 
-        elif periodo == 'Mês passado':
-            radiobutton = 'last_month'
+    periodo = ''
+
+    alcance=post_alcance(filtro=periodo)
+    visitas=page_views_total(filtro=periodo)
+    seguidores = page_fans()
+    seguidores_ = page_fans_last_month()
+    acoes = clicks_on_page()
+    crescimento = fans_groth(filtro=periodo)
+    metrica_ =metricas()
+    media_idade =media_age(filtro=periodo)
+    media_genero =media_gender(filtro=periodo)
+    total_acoes =total_actions(filtro=periodo)
+    engajamento_total =total_engajamento()
+    periodo_imprimi = ''
+    if request.method == 'POST' and 'exampleRadios' in request.form:
+        periodo = request.form['exampleRadios']
+        print(periodo)
+
+    else:
+        print("filtro inexistente")
 
     if request.method == 'POST' and 'nome' in request.form:
         email = request.form['email']
-
         try:
             compartilha()
         except Exception as err:
             msg="Não foi possivel compartilhar o dashboard com esse usuario pelo seeguite motivo:"+ err
     
+    # valida periodo
+    if periodo == 'today':
+        periodo_imprimi = 'Hoje'
     
-    return render_template('facebookads.html', model,
+    return render_template('facebookads.html',
     msg = msg,
-    impressoes=page_impressions(), 
-    visitas=page_views_total(),
-    page_fans = page_fans(),
-    page_fans_last_28d = page_fans_last_month(),
-    clicks_on_page = clicks_on_page(),
-    fans_groth = fans_groth(),
-    metricas=metricas(),
-    media_age=media_age(),
-    media_gender=media_gender())
+    alcance=alcance, 
+    visitas=visitas,
+    page_fans = seguidores,
+    page_fans_last_28d = seguidores_,
+    clicks_on_page = acoes,
+    fans_groth = crescimento,
+    metricas=metrica_,
+    media_age=media_idade,
+    media_gender=media_genero,
+    total_actions=total_acoes,
+    total_engajamento=engajamento_total,
+    periodo_imprimi=periodo_imprimi)
 
 
 if __name__ == "__main__":

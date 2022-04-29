@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../static/img/favicon.ico">
-    <title>Document</title>
+    <title>{{nome_dash}}</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -30,6 +30,7 @@
 
 
 </head>
+
 <body>
 
     <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered" style="background-color: #32312F;">
@@ -71,55 +72,55 @@
                                 <ul class="list-group list-group-flush navbar-card-list-group">                                                           
                                   <li class="list-group-item form-check-select">
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="today">
                                       <label class="form-check-label" for="exampleRadios1">
                                         Hoje
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="yesterday">
                                       <label class="form-check-label" for="exampleRadios2">
                                         Ontem
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="last_7d">
                                       <label class="form-check-label" for="exampleRadios3">
                                         Últimos 7 dias
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="last_14d">
                                       <label class="form-check-label" for="exampleRadios4">
                                         Últimos 14 dias
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="option5">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="last_30d">
                                       <label class="form-check-label" for="exampleRadios5">
                                         Últimos 30 dias
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="option6">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="this_week_mon_today">
                                       <label class="form-check-label" for="exampleRadios6">
                                         Esta semana
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="option7">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="last_week_sun_sat">
                                       <label class="form-check-label" for="exampleRadios7">
                                         Semana passada
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios8" value="option8">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios8" value="this_month">
                                       <label class="form-check-label" for="exampleRadios8">
                                         Este mês
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios9" value="option9  ">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios9" value="last_month">
                                       <label class="form-check-label" for="exampleRadios9">
                                         Mês passado
                                       </label>
@@ -227,7 +228,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="TituloModalCentralizado">Compartilhar com os outros</h5>
+              <h5 class="modal-title" id="TituloModalCentralizado">Compartilhar com um membro da sua organização</h5>
             </div>
             <form action="{{ url_for('facebookinsights') }}" method="post">
             <div class="modal-body">
@@ -245,6 +246,7 @@
       </div>
 
         <div class="content container-fluid">
+          
           <div class="row">
             <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
 
@@ -282,7 +284,7 @@
             
                     <div class="row align-items-center gx-2 mb-1">
                     <div class="col-6">
-                        <h2 class="card-title text-inherit">100</h2>
+                        <h2 class="card-title text-inherit">{{total_actions}}</h2>
                     </div>
                     <!-- End Col -->
             
@@ -314,7 +316,7 @@
             
                     <div class="row align-items-center gx-2 mb-1">
                     <div class="col-6">
-                        <h2 class="card-title text-inherit">100.000</h2>
+                        <h2 class="card-title text-inherit">{{total_engajamento}}</h2>
                     </div>
                     <!-- End Col -->
             
@@ -339,43 +341,47 @@
             </div>
             
             <div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
-                <!-- Card -->
-                <div class="card border-0 shadow-none">
-                <div class="card-body">
-                    <h4 class="card-title">Curtidas na Página por ADS</h4>
-            
-                    <div class="row align-items-center gx-2 mb-1">
-                    <div class="col-6">
-                        <h2 class="card-title text-inherit">92,913</h2>
-                    </div>
-                    <!-- End Col -->
-            
-                    <div class="col-6">
-                        <!-- Chart -->
-                        <div class="chartjs-custom" style="height: 3rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-            
-                        </div>
-                        <!-- End Chart -->
-                    </div>
-                    <!-- End Col -->
-                    </div>
-                    <!-- End Row -->
-            
-                    <span class="badge bg-soft-secondary text-body">0.0%</span>
-                    <span class="text-body fs-6 ms-1">from 2,913</span>
-                </div>
-                </div>
-                <!-- End Card -->
-            </div>
+              <!-- Card -->
+              <div class="card border-0 shadow-none">
+              <div class="card-body">
+                  <h4 class="card-title">Engajamento</h4>
+          
+                  <div class="row align-items-center gx-2 mb-1">
+                  <div class="col-6">
+                      <h2 class="card-title text-inherit">{{total_engajamento}}</h2>
+                  </div>
+                  <!-- End Col -->
+          
+                  <div class="col-6">
+                      <!-- Chart -->
+                      <div class="chartjs-custom" style="height: 3rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+          
+                      </div>
+                      <!-- End Chart -->
+                  </div>
+                  <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+          
+                  <span class="badge bg-soft-danger text-danger">
+                  <i class="bi-graph-down"></i> 4.4%
+                  </span>
+                  <span class="text-body fs-6 ms-1">from 61.2%</span>
+              </div>
+              </div>
+              <!-- End Card -->
             </div>
 
+          </div>
+
           <div class="row">
-            <div class="col-sm-5 mb-3 mb-sm-5">
+
+            <div class="col-sm-4 mb-3 mb-sm-5 h-50">
               <!-- Card -->
               <div class="card h-100 shadow-none">
                 <!-- Header -->
                 <div class="card-header card-header-content-between">
-                  <h4 class="card-header-title">IMPRESSÕES <small class="text-muted">(Últimos 30 dias)</small></h4>
+                  <h4 class="card-header-title">Crescimento de seguidores <small class="text-muted">({{periodo_imprimi}})</small></h4>
                   <div class="dropdown">
                     <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-info-circle"></i>
@@ -393,7 +399,7 @@
     
                 <!-- Body -->
                 <div class="card-body">
-                    <div id="chart"></div>
+                    <div id="fans_groth"></div>
                 </div>
                 <!-- End Body -->
 
@@ -407,7 +413,7 @@
               <div class="card h-100">
                 <!-- Header -->
                 <div class="card-header card-header-content-sm-between">
-                  <h4 class="card-header-title mb-2 mb-sm-0">VISITAS À PÁGINA</h4>
+                  <h4 class="card-header-title mb-2 mb-sm-0">Visitas à página</h4>
                   <div class="dropdown">
                     <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-info-circle"></i>
@@ -423,7 +429,104 @@
                 <!-- Body -->
                 <div class="card-body">
                   <!-- Bar Chart -->
-                    <div id="Spark1" style="min-height: 233.012px;">
+                    <div id="visitas" style="min-height: 233.012px;">
+
+                    </div>
+                  <!-- End Bar Chart -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Card -->
+            </div>
+
+            <div class="col-sm-4 mb-3 mb-sm-5">
+              <!-- Card -->
+              <div class="card h-100">
+                <!-- Header -->
+                <div class="card-header card-header-content-sm-between">
+                  <h4 class="card-header-title mb-2 mb-sm-0">Alcance dos Post's</h4>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-info-circle"></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
+                      <span class="dropdown-header">	O número de vezes que sua Página foi <br>visualizada por pessoas no Facebook.</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body">
+                  <!-- Bar Chart -->
+                    <div id="alcance" style="min-height: 233.012px;">
+
+                    </div>
+                  <!-- End Bar Chart -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Card -->
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5 mb-3 mb-sm-5">
+              <!-- Card -->
+              <div class="card h-100 shadow-none">
+                <!-- Header -->
+                <div class="card-header card-header-content-between">
+                  <h4 class="card-header-title">Audiencia por gênero e idade <small class="text-muted">(Últimos 30 dias)</small></h4>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-info-circle"></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
+                      <span class="dropdown-header">O número de vezes que qualquer conteúdo da sua Página ou <br>
+                        sobre ela apareceu na tela de uma pessoa. Isso inclui publicações, <br>
+                        stories, anúncios, além de outros conteúdos ou informações da sua Página.</span>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body">
+                    <div id="gender_idiade"></div>
+                </div>
+                <!-- End Body -->
+
+              </div>
+              <!-- End Card -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-sm-4 mb-3 mb-sm-5">
+              <!-- Card -->
+              <div class="card h-100">
+                <!-- Header -->
+                <div class="card-header card-header-content-sm-between">
+                  <h4 class="card-header-title mb-2 mb-sm-0">Gênero da audiencia</h4>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-info-circle"></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
+                      <span class="dropdown-header">	O número de vezes que sua Página foi <br>visualizada por pessoas no Facebook.</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body">
+                  <!-- Bar Chart -->
+                    <div id="sexo_n">
 
                     </div>
                   <!-- End Bar Chart -->
@@ -439,7 +542,7 @@
               <div class="card h-100">
                 <!-- Header -->
                 <div class="card-header card-header-content-sm-between">
-                  <h4 class="card-header-title mb-2 mb-sm-0">VISÂO GERAL DA PÁGINA</h4>
+                  <h4 class="card-header-title mb-2 mb-sm-0">Ações na página</h4>
                 </div>
                 <!-- End Header -->
     
@@ -484,75 +587,6 @@
             </div>
             <!-- End Col -->
           </div>
-
-          <div class="row">
-            <div class="col-lg-5 mb-3 mb-lg-5">
-              <!-- Card -->
-              <div class="card h-100">
-                <!-- Header -->
-                <div class="card-header card-header-content-between">
-                  <h4 class="card-header-title">CRESCIMENTO DE SEGUIDORES<small class="text-muted">(Últimos 30 dias)</small></h4>
-                  <div class="dropdown">
-                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-info-circle"></i>
-                    </button>
-
-                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
-                      <span class="dropdown-header">O número de cliques nas informações de contato e no <br>botão de chamada para ação da sua Página.
-                        
-                      </span>
-                    </div>
-                  </div>
-
-                </div>
-                <!-- End Header -->
-    
-                <!-- Body -->
-                <div class="card-body">
-                    <div id="fans_groth"></div>
-                </div>
-                <!-- End Body -->
-
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Col -->
-
-            <div class="col-lg-7 mb-3 mb-lg-5">
-              <!-- Card -->
-              <div class="card h-100">
-                <!-- Header -->
-                <div class="card-header card-header-content-sm-between">
-                  <h4 class="card-header-title mb-2 mb-sm-0">VISÃO GERAL DOS SEGUIDORES</h4>
-                  <div class="dropdown">
-                    <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-info-circle"></i>
-                    </button>
-
-                    <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
-                      <span class="dropdown-header">	O número de vezes que sua Página foi <br>visualizada por pessoas no Facebook.</span>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Header -->
-    
-                <!-- Body -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-5 mb-3 mb-lg-5">
-                      <div id="media_age"></div>
-                    </div>
-                    <div class="col-lg-5 mb-3 mb-lg-5">
-                      <div id="sexo_n"></div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Body -->
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Col -->
-          </div>
         </div>
                 
     </main>
@@ -560,13 +594,15 @@
 </body>
 
 <script>
-  var page_impressions = JSON.parse('{{ impressoes | tojson | safe}}');
+  var alcance = JSON.parse('{{ alcance | tojson | safe}}');
   var page_views_total = JSON.parse('{{ visitas | tojson | safe}}');
   var clicks_on_page = JSON.parse('{{ clicks_on_page | tojson | safe}}');
   var fans_groth = JSON.parse('{{ fans_groth | tojson | safe}}');
-  var media_age = JSON.parse('{{ media_age | tojson | safe}}');
+  var idadef = JSON.parse('{{ media_age[0] | tojson | safe}}');
+  var idadem = JSON.parse('{{ media_age[1] | tojson | safe}}');
+
   var media_gender = JSON.parse('{{ media_gender | tojson | safe}}');
-  console.log(media_age[0])
+  console.log(idadef)
   // dados_vendas_por_mes
   var options = {
   chart: {
@@ -581,10 +617,10 @@
   },
   series: [{
       name: "Impressões",
-      data: page_impressions
+      data: alcance
   }],
   xaxis: {
-      categories: page_impressions
+      categories: alcance
   },
   noData: {
       text: 'Loading...'
@@ -592,7 +628,7 @@
   }
   
   var chart = new ApexCharts(
-  document.querySelector("#chart"),
+  document.querySelector("#alcance"),
   options
   );
   chart.render();
@@ -622,7 +658,7 @@
   }
 
   var chart = new ApexCharts(
-  document.querySelector("#Spark1"),
+  document.querySelector("#visitas"),
   options
   );
   chart.render();
@@ -688,35 +724,6 @@
   );
   chart.render();
 
-  // dados_vendas_por_mes
-  var options = {
-      chart: {
-        height: 350,
-        type: 'bar',
-        toolbar: {
-          show: false
-        },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      series: [{
-        name: "Média",
-        data: media_age
-      }],
-      xaxis: {
-        categories: media_age
-      },
-      noData: {
-        text: 'Loading...'
-      }
-      }
-
-  var chart = new ApexCharts(
-  document.querySelector("#media_age"),
-  options
-  );
-  chart.render();
 
   var options = {
           series: media_gender,
@@ -747,6 +754,48 @@
   );
   chart.render();
 
+  var options = {
+          series: [{
+          name: 'Mulheres',
+          type: 'column',
+          data: idadef
+        }, {
+          name: 'Homens',
+          type: 'column',
+          data: idadem
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          stacked: false
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          width: [1, 1, 4]
+        },
+
+        xaxis: {
+          categories: idadef,
+        },
+
+        tooltip: {
+          fixed: {
+            enabled: true,
+            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+            offsetY: 30,
+            offsetX: 60
+          },
+        },
+        legend: {
+          horizontalAlign: 'left',
+          offsetX: 40
+        }
+        };
+
+  var chart = new ApexCharts(document.querySelector("#gender_idiade"), options);
+  chart.render();
 </script>
 
 
