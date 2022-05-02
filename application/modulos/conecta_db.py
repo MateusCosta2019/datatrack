@@ -23,9 +23,6 @@ def conecta_db():
     try:
         connection = mysql.connector.connect(host=config['DB']['host'], port=config['DB']['port'], user=config['DB']['user'],
         password=config['DB']['password'], db=config['DB']['database'])
-
-        print("Você está conectado")
-        print("___________________")
     
     except Exception as erro:
         print("ERRO: MYSQL-erro-code", erro)

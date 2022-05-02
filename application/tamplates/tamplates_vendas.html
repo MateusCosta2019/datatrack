@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../static/img/favicon.ico">
-    <title>Tamplates</title>
+    <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- Font -->
@@ -14,11 +14,13 @@
     <link rel="stylesheet" href="../static/css/conexoes-vendor.min.css">
 
     <!-- CSS Front Template -->
+    <link rel="stylesheet" href="../static/css/style-dashboard.css">
     <link rel="stylesheet" href="../static/css/style-conexoes.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 </head>
-<body>
+
+<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl footer-offset">
 
     <!-- ========== HEADER ========== -->
     <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
@@ -29,60 +31,18 @@
           <img class="navbar-brand-logo" src="../static/img/report..png" alt="Logo" style="margin-left: 40px; margin-top: 15px;">
         </a>
         <!-- End Logo -->
-        <div class="navbar-nav-wrap-content" style="margin-left: 50px;">
-          <!-- Navbar -->
-          <ul class="navbar-nav">
-            
-            <li class="nav-item">
-              <!-- Account -->
-              <div class="nav-item">
-                <a class="nav-link " href="/dashboard" data-placement="left">
-                  <span class="nav-link-title">Inicio</span>
-                </a>
-              </div>
-              <!-- End Account -->
-            </li>
-            <li class="nav-item">
-              <!-- Account -->
-              <div class="nav-item">
-                <a class="nav-link " href="/tamplates" data-placement="left">
-                  <span class="nav-link-title">Tamplates</span>
-                </a>
-              </div>
-              <!-- End Account -->
-            </li>
-            <li class="nav-item">
-              <!-- Account -->
-              <div class="nav-item">
-                <a class="nav-link " href="/dashboard" data-placement="left">
-                  <span class="nav-link-title">Documentação</span>
-                </a>
-              </div>
-              <!-- End Account -->
-            </li> 
-            <li class="nav-item">
-              <!-- Account -->
-              <div class="nav-item">
-                <a class="nav-link " href="/dashboard" data-placement="left">
-                  <span class="nav-link-title">Suporte</span>
-                </a>
-              </div>
-              <!-- End Account -->
-            </li>
-          </ul>
-          <!-- End Navbar -->
-        </div>
 
         <div class="navbar-nav-wrap-content-end">
           <!-- Navbar -->
           <ul class="navbar-nav">
-            
             <li class="nav-item">
               <!-- Account -->
               <div class="dropdown">
                 <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
                   <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
-                    <span class="avatar-initials">{{avatar}}</span>
+                    <span >
+                      <img src="https://lh3.googleusercontent.com/a-/AOh14GgChbB_KTLI5hfxSiA8YC904k-eVQsEMMIh2jIdGuU=s96-c" class="avatar-initials" alt="">
+                    </span>
                   </div>
                 </a>
   
@@ -90,28 +50,22 @@
                   <div class="dropdown-item-text">
                     <div class="d-flex align-items-center">
                       <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
-                        <span class="avatar-initials">{{avatar}}</span>
+                        <span >
+                          <img src="https://lh3.googleusercontent.com/a-/AOh14GgChbB_KTLI5hfxSiA8YC904k-eVQsEMMIh2jIdGuU=s96-c" class="avatar-initials" alt="">
+                        </span>
                       </div>
                       <div class="flex-grow-1 ms-3">
                         <h5 class="mb-0">{{session.username}}</h5>
+                        <p class="card-text text-body">{{email}}</p>
                       </div>
                     </div>
                   </div>
   
                   <div class="dropdown-divider"></div>
-  
-                  <a class="dropdown-item" href="{{url_for('profile')}}">Perfil</a>
-                  <a class="dropdown-item" href="#">Configurações</a>
-  
-  
-                  <div class="dropdown-divider"></div>
 
-  
-                  <a class="dropdown-item" href="#">Gerenciar equipe</a>
-  
-                  <div class="dropdown-divider"></div>
-  
-                  <a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a>
+                  <a class="dropdown-item" href="{{url_for('profile')}}">Perfil</a>
+                  <a class="dropdown-item" href="#">Settings</a>  
+                  <a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a>
                 </div>
               </div>
               <!-- End Account -->
@@ -123,204 +77,160 @@
       </div>
     </header>
     <!-- ========== HEADER ========== -->
-    <br>
+    
+    <!-- aside -->
+    <aside id="aside" class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-bordered bg-white navbar-vertical-aside-initialized">
+      <div class="navbar-vertical-container">
+        <div class="navbar-vertical-footer-offset">
+
+          <!-- Logo -->
+          <a class="navbar-brand" href="./index.html" aria-label="Front">
+            <img class="navbar-brand-logo" src="../static/img/logos/logo_datatrack.png" alt="Logo" data-hs-theme-appearance="default">
+          </a>
+          <!-- End Logo -->
+
+          <!-- Content -->
+          <div class="navbar-vertical-content">
+            <div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
+              <!-- Collapse -->
+              <div class="nav-item">
+                <a class="nav-link active" href="#navbarVerticalMenuDashboards" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuDashboards" aria-expanded="false" aria-controls="navbarVerticalMenuDashboards">
+                  <i class="bi-house-door nav-icon"></i>
+                  <span class="nav-link-title">Dashboards</span>
+                </a>
+  
+                <div id="navbarVerticalMenuDashboards" class="nav-collapse collapse show" data-bs-parent="#navbarVerticalMenu" hs-parent-area="#navbarVerticalMenu" >
+                  <a class="nav-link " href="#">Recentes</a>
+                  <a class="nav-link " href="/dashboard_share_with_you">Compartilhados</a>
+                  <a class="nav-link " href="#">Criado por mim</a>
+                </div>
+              </div>
+
+              <!-- End Collapse -->
+              <!-- Collapse -->
+            <!-- Collapse -->
+
+            <div id="navbarVerticalMenuPagesMenu">  
+              <div class="nav-item">
+                <a class="nav-link " href="/conexao" data-placement="left">
+                  <i class="bi-key nav-icon"></i>
+                  <span class="nav-link-title">Fonte de dados</span>
+                </a>
+              </div>
+
+              <!-- <div class="nav-item">
+                <a class="nav-link " href="/equipes" data-placement="left">
+                  <i class="bi-eye nav-icon"></i>
+                  <span class="nav-link-title">Equipe</span>
+                </a>
+              </div> -->
+
+              <div class="nav-item">
+                <a class="nav-link " href="/tamplates" data-placement="left">
+                  <i class="bi-box-seam nav-icon"></i>
+                  <span class="nav-link-title">Tamplates</span>
+                </a>
+              </div>
+            </div>
+            <!-- End Collapse -->
+        </div>
+          </div>
+          <!-- End Content -->
+
+        </div>
+      </div>
+    </aside>
+    <!-- fim aside -->
 
     <!-- ========== MAIN CONTENT ========== -->
     <main id="content" role="main" class="main">
+      <br>
       <!-- Content -->
       <div class="content container-fluid">
         <div class="row justify-content-lg-center">
-          <div class="col-lg-10">
-
+          <div class="col-lg-12">
   
-            <!-- Filter -->
-            <div class="row align-items-center mb-5">
-              <div class="col">
-                <h3 class="mb-0">Galeria de modelos</span></h3>
-
-              </div>
-              <!-- End Col -->
-            </div>
-  
-            <!-- Tab Content -->
+    
+            <!-- conteudos -->
             <div class="tab-content" id="connectionsTabContent">
                 <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
+                  <!-- cards -->
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active" id="grid" role="tabpanel" aria-labelledby="grid-tab">
+                      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                        <div class="col-xl">
 
-                    {% for row in records  %}
-                    <div class="col mb-3 mb-lg-5">
-                      <div class="card h-100" style="border-radius: 0%;">
-                        <div class="card-body pb-0">
-                          <div class="row align-items-center mb-2">
-                            <div class="col-9">
-                              <h4 class="mb-1">
-                                <a href="#">{{row.NOME_TAMPLATE}}</a>
-                              </h4>
-                            </div>
-                          </div>
-                          <img class="bg-image hover-zoom img-thumbnail border-0 rounded-0" src="{{row.THUMBNAIL}}" alt="">
-                         
-                          
-                        </div>
-                        <div class="card-footer border-0 pt-0">
-                          <div class="list-group list-group-flush list-group-no-gutters">
-                            <div class="list-group-item">
-                              <div class="row align-items-center">
-                                <div class="col">
-                                  <span class="card-subtitle">Area:</span>
-                                </div>
-                                <!-- End Col -->
-  
-                                <!-- End Col -->
-                              </div>
-                            </div>
-                            <div class="list-group-item">
-                              <div class="row align-items-center">
-                                <div class="col">                                  
-                                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">Usar</button>
-                                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">Detalhes</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>  
-             
-                    <!-- Modal -->
-                    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-sm" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title h4" id="mySmallModalLabel">Salvar</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
+                            <div class="js-fancybox row gx-3">
 
-                            <form action="{{ url_for('salvar') }}" method="post">
-                                <div class="mb-3">
-                                  <div id="emailHelp" class="form-text">Nome do Relatório</div>
-                                  <input type="text" name="nome_dash" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                </div>
-                                <div class="mb-3">
-                                  <div id="emailHelp" class="form-text">Fonte de dados</div>
-                                  <select id="inputState" class="form-control" name="nome_conn">
-                                    {% for c in nomecon %}
-                                    <option selected>{{c}}</option>
-                                    {% endfor %}
-                                  </select>
-                                </div>
-                                <div class="mb-3">
-                                  <div id="emailHelp" class="form-text">Nome do tamplate</div>
-                                  <input type="text" name="nome_tamplate" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                  <div id="emailHelp" class="form-text">Nome do tamplate é o mesmo nome que aparece na descrição dos tamplates</div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Criar</button>
-                            </form>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Modal -->
-                    <!-- Modal -->
-                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title h4" id="mySmallModalLabel">Detalhes</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row justify-content-md-between align-items-md-center mb-10">
-                              <div class="col-md-6 col-xl-5">
-                                <div class="mb-4">
-                                  <h1 class="display-3 mb-3">Analise <span class="text-primary text-highlight-warning">suas vendas</span> com os principais KPI's.</h1>
-                                </div>
-                      
-                                <div class="d-flex flex-wrap gap-2">
-                                  <!-- Card -->
-                                  <div class="bg-soft-secondary text-center rounded p-3" style="min-width: 7rem;">
-                                    <h2 class="h1 fw-normal mb-1">10</h2>
-                                    <span class="text-cap mb-0" style="font-size: 0.75rem;">KPI's</span>
-                                  </div>
-                                  <!-- End Card -->
-                      
-                                  <!-- Card -->
-                                  <div class="bg-soft-secondary text-center rounded p-3" style="min-width: 7rem;">
-                                    <h2 class="h1 fw-normal mb-1">5</h2>
-                                    <span class="text-cap mb-0" style="font-size: 0.75rem;">Gráficos</span>
-                                  </div>
-                                  <!-- End Card -->
-                                </div>
-                              </div>
-                              <!-- End Col -->
-                              <div class="col-md-6 col-xl-6">
-                              </div>
-                              <!-- End Col -->
-                            </div>
-                            <span class="divider-center text-cap mb-8">Kpi's &amp; Analises</span>
-                            <div id="version4_0-migrating-to-v4" class="content-divider">
-                              <h2 class="hs-docs-heading">Analise sobre os kpis <a class="anchorjs-link" href="#version4_0-migrating-to-v4" aria-label="Anchor" data-anchorjs-icon="#"></a></h2>
-                              <p>Considerados essenciais para a gestão de qualquer negócio, os indicadores-chave de desempenho (KPIs) são ferramentas que permitem acompanhar a evolução das estratégias adotadas e, assim, aprimorar o que for necessário para alcançar melhores resultados.</p>
-                      
-                              <ul class="list-py-1">
-                                <li><span class="text-dark fw-semi-bold">Faturamento de vendas bruto: </span>Quando o assunto é indicadores de desempenho para varejo, é impossível não 
-                                  mencionar o faturamento bruto de vendas. Afinal, a empresa varejista que não apresenta vendas expressivas corre grandes riscos de fechar as portas. 
-                                  Para calcular o faturamento bruto, basta somar todo o dinheiro que o caixa da empresa faturou durante determinado período. Esse indicador pode ser utilizado de maneira geral ou para analisar aspectos específicos, 
-                                  como produtos, canais de distribuição, vendedor etc.</li>
-
-                                <li><span class="text-dark fw-semi-bold">Margem de lucro: </span>
-                                    A margem de lucro também configura entre os principais indicadores de varejo. Ela se refere à diferença entre o faturamento bruto de determinado período e os custos das vendas realizadas (lucro bruto) dividido pela receita total.
-                                    Para ter o percentual, basta multiplicar o resultado dessa operação por 100.                    
-                                    Esse indicador é imprescindível para a correta formação de preços das mercadorias.</li>
-
-                                <li><span class="text-dark fw-semi-bold">Taxa de conversão: </span>A taxa de conversão é um indicador que mostra o desempenho da sua empresa em converter oportunidades em vendas de fato.
-
-                                  Ou seja, a taxa de conversão é a relação entre as oportunidades geradas e as vendas concretizadas.
-                                  
-                                  Se você tem uma loja física ou virtual, pode calcular a taxa de conversão dividindo o total de vendas realizadas pelo total de visitantes em determinado período e depois multiplicar por 100 para ter o resultado percentual.</li>
-
-
-                                <li><span class="text-dark fw-semi-bold">Ticket médio: </span>O ticket médio mostra quanto cada venda realizada representou de receita para a empresa, em média, durante um período específico.
-                                    Para calcular este indicador, basta dividir o valor do faturamento bruto pelo total de vendas.</li>
-
+                              {% for row in records %}
+                              <div class="col-6 col-sm-4 col-md-3 mb-3 mb-lg-5">
                                 
-                                <!-- <li><span class="text-dark fw-semi-bold">HS libraries</span> - all libraries are Vanilla JS now.</li> -->
-                                <li><span class="text-dark fw-semi-bold">Giro de estoque: </span>Considerado um dos principais indicadores de varejo, o giro de estoque se refere à frequência com que as mercadorias giram no estoque.
+                                <div class="card card-sm card-hover-shadow h-100">
+                                  <img class="card-img-top"  src="../static/img/cards/cards image.jpg" alt="Image Description">
+              
+                                  <!-- Body -->
+                                  <div class="card-body">
+                                    <div class="mb-3">
+      
+                                      <h4 class="mb-1">{{row.NOME_TAMPLATE}}</h4>
 
-                                  Ou seja, esse indicador calcula o tempo médio entre os pedidos de reposição de determinados produtos.
+                                    </div>
+                                    <a class="stretched-link" href="{{row.URL}}"></a>
+                                  </div>
                                   
-                                  Produtos com giro baixo, saem pouco, enquanto os com giro alto apresentam uma demanda maior dos seus consumidores.
-                                  
-                                  Manter-se atento a esse importante indicador é necessário para saber quais quantidade corretas encomendar aos fornecedores a fim de evitar desperdícios. </li>
-                              </ul>
+
+                                </div>
+                                
+                              </div>
+                              {% endfor %}
                             </div>
+
                           </div>
-                        </div>
-                      </div>
+                      </div>           
                     </div>
-                    <!-- Modal -->
-                  </div>
-               </div>
+                </div>
+                <!-- cards -->
+            <!-- End Connections -->              
+                </div>
             </div>
+            <!-- End conteudos -->
+
+            <!-- Mensagem caso n tenha nada -->
+            <div class="content container-fluid">
+              <div class="row justify-content-sm-center text-center py-10">
+                <div class="col-sm-7 col-md-5">
+                  <h1>{{h1}}</h1>
+                  <p>{{p}}</p>
+                </div>
+              </div>
+              
+            </div>
+            <!-- End Mensagem caso n tenha nada -->
+
+          <!-- End Col -->
+          </div>
+        <!-- End Row -->
         </div>
-      </div>
       <!-- End Content -->
-      {% endfor %}  
-      <!-- ========== Footer ==========-->
+      </div>
+      <!-- Footer -->
+  
       <div class="footer">
         <div class="row justify-content-between align-items-center">
           <div class="col">
             <p class="fs-6 mb-0">© <span class="d-none d-sm-inline-block">2022 Datacloud</span></p>
           </div>
+          <!-- End Col -->
+          <!-- End Col -->
         </div>
+        <!-- End Row -->
       </div>
-      <!-- ========== Footer ==========-->
-
+  
+      <!-- End Footer -->
     </main>
     <!-- ========== END MAIN CONTENT ========== -->
-
-
+    <script>
+      $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+    </script>
 </body>
 </html>

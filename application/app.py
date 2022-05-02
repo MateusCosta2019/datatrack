@@ -3,11 +3,17 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 from pathlib import Path
 from configparser import ConfigParser
+import logging 
+from datetime import datetime
+import string
+import random
+from authlib.integrations.flask_client import OAuth
+import os
 
 # importa modulos criados
 import modulos.periodo as dashboardapp
 from modulos.deleta import deleta_dashboard
-from modulos.fun_SQL import cadastro, conexoes, cadastro_adm, mostra_equipe, compartilha
+from modulos.fun_SQL import cadastro, conexoes, cadastro_adm, mostra_equipe
 from modulos.conector_facebook import post_alcance, media_gender, total_engajamento, metricas, total_actions, media_age, page_views_total, page_fans, page_fans_last_month, clicks_on_page, fans_groth
 
 # configura conexão com DB
@@ -18,6 +24,8 @@ config.read(init_config)
 
 # inicia um servidor flask
 app = Flask(__name__, template_folder="tamplates")
+oauth = OAuth(app)
+
 
 # inicia conexão com DB
 try:
@@ -76,7 +84,7 @@ def dashboard():
     avatar = session['username'][0]
 
     # Pega dashboards salvos
-    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, tbd_salvos.URL FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE ID_USUARIO = {id_user}')
+    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, tbd_salvos.URL, DATA_CRIACAO FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE ID_USUARIO = {id_user}')
     records = cursor.fetchall()
     if records:
         records=records
@@ -88,7 +96,7 @@ def dashboard():
     if request.method == 'POST':
         deleta_dashboard(id_user=id_user, nome_delete= request.form['delete'])
         
-    return render_template('dash.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
+    return render_template('inicio.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
 
 @app.route('/dashboard_share_with_you', methods =['GET', 'POST'])
 def dashboard_compartilhados():   
@@ -175,54 +183,36 @@ def tamplates():
 
     return render_template('tamplates_vendas.html', msg=msg, records=records, avatar=avatar)
 
-@app.route('/equipes', methods=['GET', 'POST'])
-def equipes():
-    avatar = session['username'][0]
-    id_user = session['id']
-
-    # mostra equipe
-    cursor = mysqldata.connection.cursor(MySQLdb.cursors.DictCursor)
-    
-    empresa = mostra_equipe(id=id_user)
-
-    cursor.execute(f'SELECT NOME, SOBRENOME, EMAIL FROM tbd_usuario WHERE EMPRESA = "{empresa}"')
-    resultado = cursor.fetchall()
-    
-    # adiciona_membro_equipe
-    if request.method == 'POST' and 'nome' in request.form and 'sobrenome' in request.form and 'email' in request.form:
-        nome = request.form['nome']
-        sobrenome = request.form['sobrenome']
-        email = request.form['email']
-        
-        cadastro_adm(nome=nome, sobrenome=sobrenome, email=email)
-
-    return render_template('equipes.html', avatar=avatar, membros=resultado)
-
 @app.route('/salvar', methods=['GET', 'POST'])
 def salvar():
     if request.method == 'POST' and 'nome_tamplate' in request.form:
-        nome_dash = request.form['nome_dash']
         nome_tamplate = request.form['nome_tamplate']
         user = session['id']
 
         cursor = mysqldata.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute(f'SELECT ID FROM tbd_tamplates WHERE NOME_TAMPLATE = "{nome_tamplate}"')
+        cursor.execute(f'SELECT URL FROM tbd_tamplates WHERE NOME_TAMPLATE = "{nome_tamplate}"')
         resultador = cursor.fetchone()
+        url_base = resultador['URL']
 
-        # idconn = resultador['id_conexao']
-        idtamplate = resultador['ID']
+        escolhas_possiveis = string.ascii_letters + string.digits
+        resultado = ''
+        for i in range(50):
+            resultado += random.choice(escolhas_possiveis)
 
-        cursor.execute('INSERT INTO tbd_salvos (NOME_DASHBOARD, ID_USUARIO, ID_TAMPLATES, ID_CONEXAO) VALUES (%s,%s,%s,%s)', (nome_dash,user, idtamplate, "1"))
+        novo_url = url_base+'/'+resultado
+        chave_unica = novo_url[39:]
+
+        cursor.execute('INSERT INTO tbd_salvos (NOME_DASHBOARD, ID_USUARIO,ID_TAMPLATES, URL, ID_CONEXAO, DATA_CRIACAO) VALUES (%s,%s,%s, %s, %s, NOW())', (nome_tamplate ,user, 1, novo_url, "1"))
         mysqldata.connection.commit()
 
-        return redirect(url_for(f'{nome_tamplate}'))
+        return redirect(url_for(f'{nome_tamplate+"/"+chave_unica}'))
    
-    return redirect(url_for('tamplates_vendas'))
+    return redirect(url_for('tamplates'))
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
 
-    return render_template('user_profile.html')
+    return render_template('perfil.html')
  
 @app.errorhandler(404) 
 def not_found(e): 
@@ -241,16 +231,18 @@ def registro():
         cadastro(nome=nome, sobrenome=sobrenome, email=email, senha=senha)
         return redirect(url_for('login'))
 
-    return render_template('register.html')
-
+    return render_template('cadastro.html')
 
 # # tamplates 
-@app.route('/facebookinsights', methods =['GET', 'POST'])
+@app.route('/testedesgraca', methods =['GET', 'POST'])
 def facebookinsights():
+
+    #################### DECLARAÇÃO DE VARIAVEIS #################### 
     msg = ''
-
     periodo = ''
-
+    periodo_imprimi = ''
+    url_end = request.base_url
+    print(url_end)
     alcance=post_alcance(filtro=periodo)
     visitas=page_views_total(filtro=periodo)
     seguidores = page_fans()
@@ -262,7 +254,8 @@ def facebookinsights():
     media_genero =media_gender(filtro=periodo)
     total_acoes =total_actions(filtro=periodo)
     engajamento_total =total_engajamento()
-    periodo_imprimi = ''
+    
+    #################### VALIDAÇÃO DO BOTÃO DE FILTRO ####################
     if request.method == 'POST' and 'exampleRadios' in request.form:
         periodo = request.form['exampleRadios']
         print(periodo)
@@ -270,18 +263,14 @@ def facebookinsights():
     else:
         print("filtro inexistente")
 
-    if request.method == 'POST' and 'nome' in request.form:
-        email = request.form['email']
-        try:
-            compartilha()
-        except Exception as err:
-            msg="Não foi possivel compartilhar o dashboard com esse usuario pelo seeguite motivo:"+ err
+    #################### FUNÇÃO DE COMPARTILHAR DASHBOARD ####################
     
-    # valida periodo
+    #################### VALIDA PERIODO E RETORNA NO DASHBOARD ####################
     if periodo == 'today':
         periodo_imprimi = 'Hoje'
     
-    return render_template('facebookads.html',
+     
+    return render_template('facebookinsights.html',
     msg = msg,
     alcance=alcance, 
     visitas=visitas,
@@ -296,6 +285,71 @@ def facebookinsights():
     total_engajamento=engajamento_total,
     periodo_imprimi=periodo_imprimi)
 
+
+@app.route('/facebook_insights/<name>', methods =['GET', 'POST'])
+def apenas(name=None):
+
+    msg = ''
+    periodo = ''
+    periodo_imprimi = ''
+    url_end = request.base_url
+    print(url_end)
+    alcance=post_alcance(filtro=periodo)
+    visitas=page_views_total(filtro=periodo)
+    seguidores = page_fans()
+    seguidores_ = page_fans_last_month()
+    acoes = clicks_on_page()
+    crescimento = fans_groth(filtro=periodo)
+    metrica_ =metricas()
+    media_idade =media_age(filtro=periodo)
+    media_genero =media_gender(filtro=periodo)
+    total_acoes =total_actions(filtro=periodo)
+    engajamento_total =total_engajamento()
+
+    return render_template(
+    'facebookinsights.html',
+    name=name,
+    msg = msg,
+    alcance=alcance, 
+    visitas=visitas,
+    page_fans = seguidores,
+    page_fans_last_28d = seguidores_,
+    clicks_on_page = acoes,
+    fans_groth = crescimento,
+    metricas=metrica_,
+    media_age=media_idade,
+    media_gender=media_genero,
+    total_actions=total_acoes,
+    total_engajamento=engajamento_total,
+    periodo_imprimi=periodo_imprimi)
+
+
+@app.route('/google/')
+def google():
+
+	GOOGLE_CLIENT_ID = '1024109355929-73jshc403dcggmp7tast0k1tscd5mk33.apps.googleusercontent.com'
+	GOOGLE_CLIENT_SECRET = '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'
+	CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+	oauth.register(
+		name='google',
+		client_id=GOOGLE_CLIENT_ID,
+		client_secret=GOOGLE_CLIENT_SECRET,
+		server_metadata_url=CONF_URL,
+		client_kwargs={
+			'scope': 'https://www.googleapis.com/auth/analytics.readonly'
+		}
+	)
+	
+	# Redirect to google_auth function
+	redirect_uri = url_for('google_auth', _external=True)
+	return oauth.google.authorize_redirect(redirect_uri)
+
+@app.route('/google/auth/')
+def google_auth():
+	token = oauth.google.authorize_access_token()
+	print(" Google User ", token)
+    
+	return redirect(url_for('conexao'))
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
