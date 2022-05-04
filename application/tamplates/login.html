@@ -18,85 +18,83 @@
 
   <!-- CSS Front Template -->
   <link rel="stylesheet" href="../static/css/theme.min.css">
-  <link rel="stylesheet" href="../static/css/style_login.css">
 
   <link rel="preload" href="./app/static/assets/css/theme.min.css" data-hs-appearance="default" as="style">
 
 </head>
 <body>
     <main id="content" role="main" class="main">
-      <div class="container">
-        
-        <div class="row">
-          <div class="col" >
-            <div class="container overflow-hidden mt-2">
-              <div class="row gy-6">
+    
 
-                <div id="logo" class="col-10 mt-8">
-                  <img src="../static/img/logos/logo_datatrack.png" class="img-fluid" alt="Responsive image" style="width: 153px; height: 50px;">
-                </div>
-                <div class="col-10">
-                  <h1 class="display-5">Login</h1>
-                  <p>Bem vindo de volta! Por favor entre com seu email e senha</p>
-                </div>
-
+        <!-- Content -->
+        <div class="container py-5 py-sm-7">
+          <a class="d-flex justify-content-center mb-5" href="./index.html">
+            <img class="zi-2" src="../static/img/Group 2.png" alt="Image Description" style="width: 10rem;">
+          </a>
+    
+          <div class="mx-auto" style="max-width: 30rem;">
+            <!-- Card -->
+            <div class="card card-lg mb-5">
+              <div class="card-body">
+                <!-- Form -->
                 <form id="formcontrol" class="justify-content-center" novalidate="" action="{{ url_for('login') }}" method="post">
-                  <div class="col-10">
-                    <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="Email" aria-label="email@address.com" required>
-                    <span class="invalid-feedback">Por favor informe um email valido.</span>
-                  </div>
-
-                  <div class="col-10 mt-3">
-                    <input type="password" class="form-control form-control-lg" name="senha" id="signinSrEmail" tabindex="1" placeholder="Senha" aria-label="email@address.com" required>
-                    <span class="invalid-feedback">Por favor informe um email valido.</span>
-                  </div>
-                   
-                  <div class="col-10 mt-3">
-                    <div class="row gy-5">
-                      <div class="col-6">
-                        <div class="p-0">
-                          <input class="form-check-input" type="checkbox" value="" id="termsCheckbox">
-                          <label class="form-check-label" for="termsCheckbox">
-                            Lembre de mim
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="p-0">
-                            <span class="d-flex justify-content-end align-items-center">
-                              <a class="form-label-link mb-0" href="./authentication-reset-password-basic.html">Esqueceu sua senha?</a>
-                            </span>      
-                        </div>
-                      </div>
+                  <div class="text-center">
+                    <div class="mb-5">
+                      <h1 class="display-5">Login</h1>
+                      <p>Não tem uma conta? <a class="link"  href="{{url_for('registro')}}">Cadastra-se aqui</a></p>
                     </div>
+                    <span class="divider-center text-muted mb-4"></span>
                   </div>
+    
+                  <!-- Form -->
+                  <div class="mb-4">
+                    <label class="form-label" for="signinSrEmail">Email</label>
+                    <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="Ex: maria@dominio.com.br" aria-label="email@address.com" required="">
+                    <span class="invalid-feedback">Por favor informe um email valido.</span>
+                  </div>
+                  <!-- End Form -->
+    
+                  <!-- Form -->
+                  <div class="mb-4">
+                    <label class="form-label w-100" for="signupSrPassword" tabindex="0">
+                      <span class="d-flex justify-content-between align-items-center">
+                        <span>Senha</span>
+                        <a class="form-label-link mb-0" href="{{url_for('reset_pass')}}">Esqueceu sua senha?</a>                      </span>
 
-                  <div class="col-10 mt-8">
+                    </label>
+    
+                    <div class="input-group input-group-merge" data-hs-validation-validate-class="">
+                      <input type="password" class="js-toggle-password form-control form-control-lg" name="senha" id="signupSrPassword" placeholder="Informe sua senha" aria-label="8+ characters required" required="" minlength="8">
+                    </div>
+    
+                    <span class="invalid-feedback">Por favor informe uma senha valida.</span>
+                  </div>
+                  <!-- End Form -->
+    
+                  <!-- Form Check -->
+                  <div class="form-check mb-4" style="margin-left: -17px;">
+                    <span style="color: red;">{{msg}}</span>
+                  </div>
+                  <!-- End Form Check -->
+    
+                  <div class="d-grid">
                     <button id="btnlogin" type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
                   </div>
-
-                  <div class="col-10 mt-7">
-                    <div class="row gy-5">
-                      <div class="col-12">
-                        <div class="text-center">
-                          <div class="mb-5">
-                            <p>Não tem uma conta? <a class="link" href="/registro">Cadastra-se aqui</a></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 </form>
-
+                <!-- End Form -->
               </div>
             </div>
+            <!-- End Card -->
+    
+            <!-- Footer -->
+            <div class="position-relative text-center zi-1">
+              <small class="text-cap text-body mb-4">Utilizado pelas melhores equipes</small>
+            </div>
+            <!-- End Footer -->
           </div>
-
-          <div id="conteudomobile" class="col" style="background-image: url(../static/img/background/background_login.png);"></div>
         </div>
-      </div>
-    </main>
+        <!-- End Content -->
+      </main>
 <script src="../static/js/app-tamplate-vendas.js"></script>
 </body>
 </html>

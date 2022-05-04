@@ -3,17 +3,16 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 from pathlib import Path
 from configparser import ConfigParser
-import logging 
-from datetime import datetime
 import string
 import random
 from authlib.integrations.flask_client import OAuth
-import os
+from modulos.recupera_senha import reset_password
+import time
 
 # importa modulos criados
 import modulos.periodo as dashboardapp
 from modulos.deleta import deleta_dashboard
-from modulos.fun_SQL import cadastro, conexoes, cadastro_adm, mostra_equipe
+from modulos.fun_SQL import cadastro, conexoes
 from modulos.conector_facebook import post_alcance, media_gender, total_engajamento, metricas, total_actions, media_age, page_views_total, page_fans, page_fans_last_month, clicks_on_page, fans_groth
 
 # configura conexão com DB
@@ -50,7 +49,7 @@ def login():
         senha = request.form['senha']
 
         cursor = mysqldata.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT ID, NOME, SOBRENOME, EMAIL, SENHA FROM tbd_usuario WHERE EMAIL = %s AND SENHA = MD5(%s)', (email, senha))
+        cursor.execute('SELECT ID, NOME, SOBRENOME, EMAIL, EMPRESA, SENHA FROM tbd_usuario WHERE EMAIL = %s AND SENHA = MD5(%s)', (email, senha))
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
@@ -58,11 +57,17 @@ def login():
             session['password'] = account['SENHA']
             session['username'] = account['NOME']
             session['id'] = account['ID']
+            session['business'] = account['EMPRESA']
             msg = 'Logged in successfully !'
             
+
+
+
+
+
             return redirect(url_for('dashboard'))
         else:
-            msg = 'Senha ou usuário incorreto!'
+            msg = 'Usuário ou senha incorreto!'
 
     return render_template('login.html', msg = msg)
 
@@ -350,6 +355,22 @@ def google_auth():
 	print(" Google User ", token)
     
 	return redirect(url_for('conexao'))
+
+@app.route('/reset_password/', methods =['GET', 'POST'])
+def reset_pass():
+    msg = ''
+    retorno = 'Digite o endereço de e-mail que você usou quando ingressou e vamos redefinir sua senha.'
+    if request.method == 'POST' and 'email' in request.form and 'senha' in request.form:
+        email =  request.form['email']
+        senha = request.form['senha']
+
+        msg = reset_password(email=email, senha=senha)
+        print(msg)
+    if msg == 'Alteração bem suscedida':
+        retorno = 'Alteração de senha realizada, estamos levando você para pagina de login'
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html', msg=msg, retorno=retorno)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)

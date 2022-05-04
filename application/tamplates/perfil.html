@@ -16,6 +16,7 @@
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="../static/css/style-conexoes.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style_profile.css">
 
 </head>
 
@@ -83,7 +84,9 @@
               <div class="dropdown">
                 <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
                   <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
-                    <span class="avatar-initials">{{avatar}}</span>
+                    <span class="avatar-initials">
+                      <img src="https://lh3.googleusercontent.com/a-/AOh14GgChbB_KTLI5hfxSiA8YC904k-eVQsEMMIh2jIdGuU=s96-c" class="avatar-initials" alt="">
+                    </span>
                   </div>
                 </a>
   
@@ -91,7 +94,9 @@
                   <div class="dropdown-item-text">
                     <div class="d-flex align-items-center">
                       <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
-                        <span class="avatar-initials">{{avatar}}</span>
+                        <span class="avatar-initials">
+                          <img src="https://lh3.googleusercontent.com/a-/AOh14GgChbB_KTLI5hfxSiA8YC904k-eVQsEMMIh2jIdGuU=s96-c" class="avatar-initials" alt="">
+                        </span>
                       </div>
                       <div class="flex-grow-1 ms-3">
                         <h5 class="mb-0">{{session.username}}</h5>
@@ -136,27 +141,36 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4">
-						<div class="card mb-3 mb-lg-5" style="border-radius: 0%;">
-							<div class="card-header card-header-content-between">
-								<div class="avatar avatar-xxl avatar-sm avatar-dark avatar-circle">
-									<span class="avatar-initials">{{avatar}}</span>
+						<div class="card mb-3 mb-lg-5">
+							<div class="card-header card-header-content-between justify-content-lg-center">
+								<div id="photo" class="avatar avatar-xxl avatar-sm avatar-dark avatar-circle">
+									<span class="avatar-initials">
+                    <img src="https://lh3.googleusercontent.com/a-/AOh14GgChbB_KTLI5hfxSiA8YC904k-eVQsEMMIh2jIdGuU=s96-c" class="avatar-initials" alt="">
+                  </span>
 								</div>
+                <div class="card-title mx-3">
+                  <h1>Mateus Rodrigues</h1>
+                  <p class="text-muted">
+                    Data Enginner
+                  </p>
+                </div>          
 							</div>
+              
 							<div class="card-body">
 								<ul class="list-unstyled list-py-2 text-dark mb-0">
-									<li class="pb-0"><span class="card-subtitle">About</span></li>
-									<li><i class="bi-person dropdown-item-icon"></i>{{name}}</li>
-									<li><i class="bi-briefcase dropdown-item-icon"></i>{{business}}</li>
-									<li><i class="bi-briefcase dropdown-item-icon"></i>{{Departament}}</li>
-									<li class="pt-4 pb-0"><span class="card-subtitle">Contacts</span></li>	
-									<li><i class="bi-at dropdown-item-icon"></i>{{email}}</li>
+                  <li class="pt-4 pb-0"><span class="card-subtitle">Contacts</span></li>
+                  <li><i class="bi-at dropdown-item-icon"></i>{{session.email}}</li>
 									<li><i class="bi-phone dropdown-item-icon"></i> +55 (11) 9 8589-1938</li>
+									<li class="pb-0"><span class="card-subtitle">About</span></li>
+									<li><i class="bi-briefcase dropdown-item-icon"></i>{{session.business}}</li>
+
 								</ul>
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-8">
-						<div class="card card-centered mb-3 mb-lg-5" style="border-radius: 0%;">
+						<div class="card card-centered mb-3 mb-lg-5">
 							<!-- Header -->
 							<div class="card-header card-header-content-between">
 							  <h4 class="card-header-title">Activity stream</h4>
