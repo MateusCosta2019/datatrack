@@ -3,3 +3,5 @@ __pycache__
 .env
 testes/
 application/modulos/testes
+application/config
+.Factors_login

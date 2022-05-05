@@ -1,22 +1,9 @@
-#btnlogin{
-    width: 300px; 
-    border-radius: 9px; 
-    background: #2F3D91;
-}
 
-@media only screen and (max-width: 1000px) {
-    #logo {
-        margin-left: 64px;
-    }
-    #btnlogin{
-        width: 211px;
-    }
-
-    #conteudomobile{
-        display: none;
-    }
-
-    #formcontrol{
-        margin-left: 20px;
-    }
+  #error {
+    padding: 15px;
+    border-radius: 5px;
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    list-style: none;
   }

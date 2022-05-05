@@ -6,6 +6,7 @@ from configparser import ConfigParser
 import string
 import random
 from authlib.integrations.flask_client import OAuth
+from httplib2 import Authentication
 from modulos.recupera_senha import reset_password
 import time
 
@@ -27,19 +28,22 @@ oauth = OAuth(app)
 
 
 # inicia conexão com DB
-try:
-    app.secret_key = 'super secret key'
-    app.config['MYSQL_HOST'] = config.get('DB','host')
-    app.config['MYSQL_USER'] = config.get('DB', 'user')
-    app.config['MYSQL_PASSWORD'] = config.get('DB', 'password')
-    app.config['MYSQL_DB'] = config.get('DB','database')
-    
-    mysqldata = MySQL(app)
+# try:
+app.secret_key = 'super secret key'
+app.config['MYSQL_HOST'] = config.get('DB','host')
+app.config['MYSQL_USER'] = config.get('DB', 'user')
+app.config['MYSQL_PASSWORD'] = config.get('DB', 'password')
+app.config['MYSQL_DB'] = config.get('DB','database')
 
-except Exception as erro:
-    print("ERRO: MYSQL-erro-code", erro)
-    exit()
+mysqldata = MySQL(app)
 
+# except Exception as erro:
+#     print("ERRO: MYSQL-erro-code", erro)
+#     exit()
+
+############################################## Autenticação ##############################################
+
+# beckend login 
 @app.route('/')
 @app.route('/login', methods =['GET', 'POST'])
 def login():
@@ -59,10 +63,6 @@ def login():
             session['id'] = account['ID']
             session['business'] = account['EMPRESA']
             msg = 'Logged in successfully !'
-            
-
-
-
 
 
             return redirect(url_for('dashboard'))
@@ -71,6 +71,7 @@ def login():
 
     return render_template('login.html', msg = msg)
 
+# backend logout (sair do app)
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
@@ -78,6 +79,43 @@ def logout():
     session.pop('email', None)
     return redirect(url_for('login'))
 
+# backend restauração de senha
+@app.route('/reset_password/', methods =['GET', 'POST'])
+def reset_pass():
+    msg = ''
+    retorno = 'Digite o endereço de e-mail que você usou quando ingressou e vamos redefinir sua senha.'
+    if request.method == 'POST' and 'email' in request.form and 'senha' in request.form:
+        email =  request.form['email']
+        senha = request.form['senha']
+
+        msg = reset_password(email=email, senha=senha)
+        print(msg)
+    if msg == 'Alteração bem suscedida':
+        retorno = 'Alteração de senha realizada, estamos levando você para pagina de login'
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html', msg=msg, retorno=retorno)
+
+# backend cadastro de novos usuarios
+@app.route('/registro', methods =['GET', 'POST'])
+def registro():
+    
+    if request.method == 'POST' and 'nome' in request.form and 'sobrenome' in request.form and 'email' in request.form and 'senha' in request.form:
+        nome = request.form['nome']
+        sobrenome = request.form['sobrenome']
+        email = request.form['email']
+        senha = request.form['senha']
+        
+        cadastro(nome=nome, sobrenome=sobrenome, email=email, senha=senha)
+        return redirect(url_for('login'))
+
+    return render_template('cadastro.html')
+
+
+
+############################################## Paginação ##############################################
+
+# Beckend da pagina dos dashbaord gerais primeira pagina do app
 @app.route('/dashboard', methods =['GET', 'POST'])
 def dashboard():   
     h1 = ''
@@ -88,8 +126,15 @@ def dashboard():
     id_user = session['id']
     avatar = session['username'][0]
 
+    from modulos.dashboards import dashboard_geral
     # Pega dashboards salvos
-    cursor.execute(f'SELECT NOME_DASHBOARD, THUMBNAIL, tbd_salvos.URL, DATA_CRIACAO FROM tbd_salvos INNER JOIN tbd_tamplates ON tbd_tamplates.ID = tbd_salvos.ID WHERE ID_USUARIO = {id_user}')
+    cursor.execute(f"""SELECT 
+                        tbd_salvos.NOME_DASHBOARD, 
+                        tbd_salvos.URL, 
+                        concat(date_format(data_criacao, '%e'), ' de ', date_format(data_criacao, '%M'), ' de ', date_format(data_criacao, '%Y')) as DATA_CRIACAO
+                    FROM tbd_salvos 
+                    WHERE ID_USUARIO = {id_user}""")
+
     records = cursor.fetchall()
     if records:
         records=records
@@ -103,8 +148,34 @@ def dashboard():
         
     return render_template('inicio.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
 
+# beckend dos dashboard que estão compartilhados
 @app.route('/dashboard_share_with_you', methods =['GET', 'POST'])
 def dashboard_compartilhados():   
+    h1 = ''
+    p = ''
+    cursor = mysqldata.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    saudacao = dashboardapp.saudacao()
+    id_user = session['id']
+    avatar = session['username'][0]
+
+    # Pega dashboards salvos
+    cursor.execute(f'SELECT URL_BASE FROM tbd_compartilhados WHERE ID_USUARIO_COMP = {id_user};')
+    url = cursor.fetchone()
+    url1 = url['URL_BASE']
+ 
+    cursor.execute(f'SELECT NOME_DASHBOARD, URL FROM tbd_salvos WHERE URL = "{url1}"')
+    records = cursor.fetchall()
+    if records:
+        records=records
+    else:
+        h1 = 'Que pena, ninguém compratilhou nenhum dashboard com você'
+            
+    return render_template('dash_compatilhados.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
+
+# beckend dos dashboard que recentes por da data de criação mais recente 
+@app.route('/dashboard_recentes', methods =['GET', 'POST'])
+def dashboard_recentes():   
     h1 = ''
     p = ''
     cursor = mysqldata.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -128,7 +199,7 @@ def dashboard_compartilhados():
             
     return render_template('dash_compatilhados.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
 
-
+# beckend da pagina de conexões
 @app.route('/conexao', methods =['GET', 'POST'])
 def conexao():
     avatar = session['username'][0]
@@ -159,6 +230,7 @@ def conexao():
 
     return render_template('conexoes.html' , erroconexoes=erroconexoes, suberro=suberro, conexoes=n_conexoes, avatar=avatar)   
 
+# beckend da pagina de tamplates
 @app.route('/tamplates', methods=['GET', 'POST'])
 def tamplates():
     avatar = session['username'][0]
@@ -188,6 +260,16 @@ def tamplates():
 
     return render_template('tamplates_vendas.html', msg=msg, records=records, avatar=avatar)
 
+# beckend do perfil dos usuarios
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    
+    return render_template('perfil.html')
+ 
+
+
+############################################## Funções ##############################################
+
 @app.route('/salvar', methods=['GET', 'POST'])
 def salvar():
     if request.method == 'POST' and 'nome_tamplate' in request.form:
@@ -214,35 +296,20 @@ def salvar():
    
     return redirect(url_for('tamplates'))
 
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
 
-    return render_template('perfil.html')
- 
+############################################## Paginas de erros ##############################################
 @app.errorhandler(404) 
 def not_found(e): 
   
   return render_template("404.html") 
 
-@app.route('/registro', methods =['GET', 'POST'])
-def registro():
-    
-    if request.method == 'POST' and 'nome' in request.form and 'sobrenome' in request.form and 'email' in request.form and 'senha' in request.form:
-        nome = request.form['nome']
-        sobrenome = request.form['sobrenome']
-        email = request.form['email']
-        senha = request.form['senha']
-        
-        cadastro(nome=nome, sobrenome=sobrenome, email=email, senha=senha)
-        return redirect(url_for('login'))
 
-    return render_template('cadastro.html')
 
-# # tamplates 
-@app.route('/testedesgraca', methods =['GET', 'POST'])
-def facebookinsights():
+############################################## Tamplates ##############################################
 
-    #################### DECLARAÇÃO DE VARIAVEIS #################### 
+@app.route('/facebookinsights/<name>', methods =['GET', 'POST'])
+def facebook_url(name=''):
+    name=name
     msg = ''
     periodo = ''
     periodo_imprimi = ''
@@ -260,60 +327,9 @@ def facebookinsights():
     total_acoes =total_actions(filtro=periodo)
     engajamento_total =total_engajamento()
     
-    #################### VALIDAÇÃO DO BOTÃO DE FILTRO ####################
-    if request.method == 'POST' and 'exampleRadios' in request.form:
-        periodo = request.form['exampleRadios']
-        print(periodo)
-
-    else:
-        print("filtro inexistente")
-
-    #################### FUNÇÃO DE COMPARTILHAR DASHBOARD ####################
-    
-    #################### VALIDA PERIODO E RETORNA NO DASHBOARD ####################
-    if periodo == 'today':
-        periodo_imprimi = 'Hoje'
-    
-     
-    return render_template('facebookinsights.html',
-    msg = msg,
-    alcance=alcance, 
-    visitas=visitas,
-    page_fans = seguidores,
-    page_fans_last_28d = seguidores_,
-    clicks_on_page = acoes,
-    fans_groth = crescimento,
-    metricas=metrica_,
-    media_age=media_idade,
-    media_gender=media_genero,
-    total_actions=total_acoes,
-    total_engajamento=engajamento_total,
-    periodo_imprimi=periodo_imprimi)
-
-
-@app.route('/facebook_insights/<name>', methods =['GET', 'POST'])
-def apenas(name=None):
-
-    msg = ''
-    periodo = ''
-    periodo_imprimi = ''
-    url_end = request.base_url
-    print(url_end)
-    alcance=post_alcance(filtro=periodo)
-    visitas=page_views_total(filtro=periodo)
-    seguidores = page_fans()
-    seguidores_ = page_fans_last_month()
-    acoes = clicks_on_page()
-    crescimento = fans_groth(filtro=periodo)
-    metrica_ =metricas()
-    media_idade =media_age(filtro=periodo)
-    media_genero =media_gender(filtro=periodo)
-    total_acoes =total_actions(filtro=periodo)
-    engajamento_total =total_engajamento()
-
     return render_template(
     'facebookinsights.html',
-    name=name,
+    name=msg,
     msg = msg,
     alcance=alcance, 
     visitas=visitas,
@@ -328,6 +344,7 @@ def apenas(name=None):
     total_engajamento=engajamento_total,
     periodo_imprimi=periodo_imprimi)
 
+############################################## Conectores ##############################################
 
 @app.route('/google/')
 def google():
@@ -355,22 +372,6 @@ def google_auth():
 	print(" Google User ", token)
     
 	return redirect(url_for('conexao'))
-
-@app.route('/reset_password/', methods =['GET', 'POST'])
-def reset_pass():
-    msg = ''
-    retorno = 'Digite o endereço de e-mail que você usou quando ingressou e vamos redefinir sua senha.'
-    if request.method == 'POST' and 'email' in request.form and 'senha' in request.form:
-        email =  request.form['email']
-        senha = request.form['senha']
-
-        msg = reset_password(email=email, senha=senha)
-        print(msg)
-    if msg == 'Alteração bem suscedida':
-        retorno = 'Alteração de senha realizada, estamos levando você para pagina de login'
-        return redirect(url_for('login'))
-
-    return render_template('reset_password.html', msg=msg, retorno=retorno)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
