@@ -158,18 +158,20 @@ def dashboard_compartilhados():
     saudacao = dashboardapp.saudacao()
     id_user = session['id']
     avatar = session['username'][0]
-
+    records = ''
     # Pega dashboards salvos
     cursor.execute(f'SELECT URL_BASE FROM tbd_compartilhados WHERE ID_USUARIO_COMP = {id_user};')
     url = cursor.fetchone()
-    url1 = url['URL_BASE']
- 
-    cursor.execute(f'SELECT NOME_DASHBOARD, URL FROM tbd_salvos WHERE URL = "{url1}"')
-    records = cursor.fetchall()
-    if records:
-        records=records
-    else:
+    
+    if url == None:
         h1 = 'Que pena, ninguém compratilhou nenhum dashboard com você'
+    else:
+        url1 = url['URL_BASE']
+        cursor.execute(f'SELECT NOME_DASHBOARD, URL FROM tbd_salvos WHERE URL = "{url1}"')
+        records = cursor.fetchall()
+        if records:
+            records=records 
+        
             
     return render_template('dash_compatilhados.html', p=p, h1=h1, saudacao=saudacao, avatar=avatar, records=records)
 

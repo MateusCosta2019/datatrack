@@ -1,7 +1,6 @@
 __pycache__
 .vscode
 .env
-testes/
-application/modulos/testes
-application/config
-.Factors_login
+application/config/
+**/2Factors_login
+**/application/config
