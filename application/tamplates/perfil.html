@@ -16,7 +16,7 @@
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="../static/css/style-conexoes.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="style_profile.css">
+    <link rel="stylesheet" href="../static/css/style-perfil.css">
 
 </head>
 
@@ -27,8 +27,8 @@
       <div class="navbar-nav-wrap">
 
         <!-- Logo -->
-        <a class="navbar-brand" href="./index.html" aria-label="Front">
-          <img class="navbar-brand-logo" src="../static/img/report..png" alt="Logo" style="margin-left: 40px; margin-top: 15px;">
+        <a class="navbar-brand" href="/dashboard" aria-label="Front">
+          <img class="navbar-brand-logo" src="../static/img/logos/logo_datatrack.png" alt="Logo" style="margin-left: 40px;">
         </a>
         <!-- End Logo -->
         <div class="navbar-nav-wrap-content" style="margin-left: 50px;">
@@ -141,7 +141,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4">
-						<div class="card mb-3 mb-lg-5">
+						<div class="card mb-3 mb-lg-5 border-0 shadow-none">
 							<div class="card-header card-header-content-between justify-content-lg-center">
 								<div id="photo" class="avatar avatar-xxl avatar-sm avatar-dark avatar-circle">
 									<span class="avatar-initials">
@@ -163,53 +163,28 @@
 									<li><i class="bi-phone dropdown-item-icon"></i> +55 (11) 9 8589-1938</li>
 									<li class="pb-0"><span class="card-subtitle">About</span></li>
 									<li><i class="bi-briefcase dropdown-item-icon"></i>{{session.business}}</li>
-
+                  <li id="btn">
+                    <div class="d-grid">
+                      <a href="#" class="btn btn-primary btn-lg btn-block mt-5">Editar perfil</a>
+                    </div>
+                  </li>
 								</ul>
 							</div>
 						</div>
 					</div>
 
 					<div class="col-lg-8">
-						<div class="card card-centered mb-3 mb-lg-5">
+						<div class="card card-centered mb-3 mb-lg-5  border-0 shadow-none">
 							<!-- Header -->
 							<div class="card-header card-header-content-between">
-							  <h4 class="card-header-title">Activity stream</h4>
-			
-							  <!-- Dropdown -->
-							  <div class="dropdown">
-								<button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle" id="contentActivityStreamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-								  <i class="bi-three-dots-vertical"></i>
-								</button>
-			
-								<div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="contentActivityStreamDropdown">
-								  <span class="dropdown-header">Settings</span>
-			
-								  <a class="dropdown-item" href="#">
-									<i class="bi-share-fill dropdown-item-icon"></i> Share connections
-								  </a>
-								  <a class="dropdown-item" href="#">
-									<i class="bi-info-circle dropdown-item-icon"></i> Suggest edits
-								  </a>
-			
-								  <div class="dropdown-divider"></div>
-			
-								  <span class="dropdown-header">Feedback</span>
-			
-								  <a class="dropdown-item" href="#">
-									<i class="bi-chat-left-dots dropdown-item-icon"></i> Report
-								  </a>
-								</div>
-							  </div>
-							  <!-- End Dropdown -->
+							  <h4 class="card-header-title">Atividades</h4>
 							</div>
 							<!-- End Header -->
 			
 							<!-- Body -->
 							<div class="card-body card-body-height">
-							  <img class="avatar avatar-xxl mb-3" src="./assets/svg/illustrations/oc-error.svg" alt="Image Description" data-hs-theme-appearance="default">
-							  <img class="avatar avatar-xxl mb-3" src="./assets/svg/illustrations-light/oc-error.svg" alt="Image Description" data-hs-theme-appearance="dark">
 							  <p class="card-text">No data to show</p>
-							  <a class="btn btn-white btn-sm" href="./#">Start your Activity</a>
+							  <a class="btn btn-white btn-sm" href="/tamplates">Criar um relatório</a>
 							</div>
 							<!-- End Body -->
 						  </div>
