@@ -1,9 +1,4 @@
-from numpy import insert
-from conecta_db import conecta_db
-import logging 
-from datetime import datetime
-import string
-import random
+from modulos.conecta_db import conecta_db
 
 connection = conecta_db()
 cursor = connection.cursor()
@@ -26,4 +21,4 @@ def share_report(email_share, id_usuario, Url_base):
     print('Compartilhado')
 
     
-share_report(email_share='t1304mts@prestadorcbmp.com.br', id_usuario=11, Url_base='http://localhost:8080/facebookinsights/Bk1qJsdOdLmarYiutbOKAzYxH8gs2SnAivZfJSGTOrwHqLPGv6')
+# share_report(email_share='t1304mts@prestadorcbmp.com.br', id_usuario=11, Url_base='http://localhost:8080/facebookinsights/Bk1qJsdOdLmarYiutbOKAzYxH8gs2SnAivZfJSGTOrwHqLPGv6')

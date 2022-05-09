@@ -310,13 +310,13 @@ def not_found(e):
 ############################################## Tamplates ##############################################
 
 @app.route('/facebookinsights/<name>', methods =['GET', 'POST'])
-def facebook_url(name=''):
+def facebook_url(name='', periodo=''):
+    if request.method == 'POST' and 'exampleRadios' in request.form:
+        periodo = request.form['exampleRadios']
+        
     name=name
     msg = ''
-    periodo = ''
-    periodo_imprimi = ''
     url_end = request.base_url
-    print(url_end)
     alcance=post_alcance(filtro=periodo)
     visitas=page_views_total(filtro=periodo)
     seguidores = page_fans()
@@ -328,7 +328,14 @@ def facebook_url(name=''):
     media_genero =media_gender(filtro=periodo)
     total_acoes =total_actions(filtro=periodo)
     engajamento_total =total_engajamento()
-    
+
+    def compartilha():
+        if request.method == 'POST' and 'email' in request.form:
+            email = request.form['email']
+            from modulos.share import share_report
+            share_report(email_share=email, id_usuario=session['id'], Url_base=url_end)
+            return redirect(url_for('tamplates'))
+
     return render_template(
     'facebookinsights.html',
     name=msg,
@@ -343,8 +350,7 @@ def facebook_url(name=''):
     media_age=media_idade,
     media_gender=media_genero,
     total_actions=total_acoes,
-    total_engajamento=engajamento_total,
-    periodo_imprimi=periodo_imprimi)
+    total_engajamento=engajamento_total, compartilha=compartilha)
 
 ############################################## Conectores ##############################################
 

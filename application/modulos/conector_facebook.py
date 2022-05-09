@@ -5,17 +5,17 @@ from datetime import datetime
 import json 
 
 params = dict()
-params['page_token'] = 'EAAUTdastuisBAA6hiHhLyNRl9MshJPajnSvLTYMgdulwuoS1CeAWk44aowe7E5g3wf5ssXjer9zxZBqG3WYxwHDOnP7NIogN6XkAWZADutt3hjnmrhyq3DiIF4qM04exJyf9V3zp8v6P7AEshnBnGh8wwr9toAJd5I9zfPjkiIXFK61woyYKQbtTvJ0DQTQkdUHRCoDZBJ2vJsqnTmB'        # not an actual access token
+params['page_token'] = 'EAAUTdastuisBADPVZAiLKwJjZBpUDOUxDGXwPIlRq2srXRQ2tnIHgZBU4jypI0ZCeyfkSu7iEBpVsRhZC70T7ZATr99fVS1pRrUMO4ux3ZBvYZAsDtsxhmyc1mHAyHOgzraiL6WrETTIy7ReWjjBDIZCCl0r1EU4EQHOFgeabcc6pXTFm9vbVkdjywhpvxX1bAjEr5mqZAcSZBoEQZDZD'        # not an actual access token
 params['page_id'] = '623594861616145' 
 graph = facebook.GraphAPI(access_token=params['page_token'], version="3.1")
 
-filtro_data = 'last_month'
+filtro_data = ''
 
 def post_alcance(filtro):
     Impressoes = graph.get_connections(id=params['page_id'], 
                                     connection_name='insights', 
                                     metric='page_impressions',
-                                    date_preset=filtro)
+                                    date_preset=f'{filtro}')
 
     dados_Impressoes = Impressoes['data'][0]['values']
     df_impressoes = pd.DataFrame(dados_Impressoes, columns=['value', 'end_time'])
@@ -29,7 +29,6 @@ def post_alcance(filtro):
     agraga['end_time'] = agraga['end_time'].dt.strftime('%d-%m-%y')
     agraga.rename({"end_time": "x", "value": "y"}, axis=1, inplace=True)
     dados_finais = agraga.to_dict(orient='records')
-    
     return dados_finais
 
 def page_views_total(filtro):
@@ -65,7 +64,7 @@ def page_fans():
 def page_fans_last_month():
     page_fans_last = graph.get_connections(id=params['page_id'], connection_name='insights', 
                                             metric='page_fans',
-                                            date_preset=filtro_data,
+                                            date_preset='last_year',
                                             show_description_from_api_doc=False)
 
     dados = page_fans_last['data'][0]['values']
@@ -145,7 +144,7 @@ def media_age(filtro):
 def media_gender(filtro):
     page_fans_gender_age = graph.get_connections(id=params['page_id'], connection_name='insights', 
                                             metric='page_fans_gender_age',
-                                            date_preset=filtro,
+                                            date_preset='last_year',
                                             show_description_from_api_doc=False)
 
     dados = page_fans_gender_age['data'][0]['values']
