@@ -352,6 +352,49 @@ def facebook_url(name='', periodo=''):
     total_actions=total_acoes,
     total_engajamento=engajamento_total, compartilha=compartilha)
 
+@app.route('/google_sessions/<name>', methods =['GET', 'POST'])
+def google_sessions(name='', periodo=''):
+    if request.method == 'POST' and 'exampleRadios' in request.form:
+        periodo = request.form['exampleRadios']
+        
+    name=name
+    msg = ''
+    url_end = request.base_url
+    alcance=post_alcance(filtro=periodo)
+    visitas=page_views_total(filtro=periodo)
+    seguidores = page_fans()
+    seguidores_ = page_fans_last_month()
+    acoes = clicks_on_page()
+    crescimento = fans_groth(filtro=periodo)
+    metrica_ =metricas()
+    media_idade =media_age(filtro=periodo)
+    media_genero =media_gender(filtro=periodo)
+    total_acoes =total_actions(filtro=periodo)
+    engajamento_total =total_engajamento()
+
+    def compartilha():
+        if request.method == 'POST' and 'email' in request.form:
+            email = request.form['email']
+            from modulos.share import share_report
+            share_report(email_share=email, id_usuario=session['id'], Url_base=url_end)
+            return redirect(url_for('tamplates'))
+
+    return render_template(
+    'google_session_insights.html',
+    name=msg,
+    msg = msg,
+    alcance=alcance, 
+    visitas=visitas,
+    page_fans = seguidores,
+    page_fans_last_28d = seguidores_,
+    clicks_on_page = acoes,
+    fans_groth = crescimento,
+    metricas=metrica_,
+    media_age=media_idade,
+    media_gender=media_genero,
+    total_actions=total_acoes,
+    total_engajamento=engajamento_total, compartilha=compartilha)
+
 ############################################## Conectores ##############################################
 
 @app.route('/google/')

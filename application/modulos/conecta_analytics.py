@@ -49,7 +49,8 @@ def get_results(service, profile_id):
       ids='ga:' + profile_id,
       start_date='2019-10-01',
       end_date='today',
-      metrics='ga:sessions, ga:newUsers, ga:pageviews').execute()
+      metrics='ga:sessions, ga:newUsers, ga:Users',
+      dimensions='ga:socialNetwork, ga:deviceCategory, ga:city, ga:year, ga:month, ga:day').execute()
 
 def print_results(results):
   if results:

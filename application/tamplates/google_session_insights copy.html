@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../static/img/favicon.ico">
+    <title>Facebook Insights</title>
+    <!-- maps -->
+    <link rel="stylesheet" href="../static/js/jquery-jvectormap-2.0.5.css" type="text/css" media="screen"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../static/js/jquery-jvectormap-2.0.5.min.js"></script>
+    <script src="../static/js/jquery-jvectormap-world-mill.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="../static/css/lading_page/conexoes-vendor.min.css">
+
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="../static/css/lading_page/theme.min.css">
+    <link rel="stylesheet" href="../static/css/lading_page/theme.min.css">
+
+    <link rel="stylesheet" href="../static/css/tamplates/facebookads.css">
+    <link rel="stylesheet" href="../static/css/lading_page/style-conexoes.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://github.com/niklasvh/html2canvas/releases/download/0.5.0-alpha1/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+
+
+</head>
+
+<body style="background-color: #F5F5F5">
+
+    <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered" style="background-color: #32312F;">
+        <div class="navbar-nav-wrap">
+            <div class="dropdown">
+            <!-- <button class="btn" type="button" id="dropmenusecondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span style="font-size: 30px; color: #32312F;"><i class="bi-grid-3x3-gap-fill"></i></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropmenusecondary">
+                <a class="dropdown-item" href="{{url_for('profile')}}">Criar alerta</a>
+                <a class="dropdown-item" href="#">Receber por email</a>  
+                <a class="dropdown-item" href="{{ url_for('logout') }}">Compartilhar</a>
+            </div> -->
+
+            </div>
+            <!-- Name dash -->
+            <h3 class="mt-1" style="color: aliceblue;">Google Analytics Sessions</h3>
+            <div class="navbar-nav-wrap-content-end">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item d-none d-sm-inline-block">
+                      <div class="dropdown">
+                        <button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" data-bs-dropdown-animation="" aria-expanded="false">
+                          <i class="bi bi-calendar3" style="color: aliceblue;"></i>
+                        </button>
+          
+                        <div class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="navbarNotificationsDropdown" style="width: 25rem; opacity: 1;">
+                          <!-- Header -->
+                          <div class="card-header card-header-content-between">
+                            <h4 class="card-title mb-0">Notifications</h4>
+                          </div>
+                          <!-- End Header -->
+          
+                          <!-- Body -->
+                          <form action="" method="post">
+                            <div class="card-body-height">
+                              <div class="tab-pane fade show active" id="notificationNavOne" role="tabpanel" aria-labelledby="notificationNavOne-tab">
+                                
+                                <ul class="list-group list-group-flush navbar-card-list-group">                                                           
+                                  <li class="list-group-item form-check-select">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="today">
+                                      <label class="form-check-label" for="exampleRadios1">
+                                        Hoje
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="yesterday">
+                                      <label class="form-check-label" for="exampleRadios2">
+                                        Ontem
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="last_7d">
+                                      <label class="form-check-label" for="exampleRadios3">
+                                        Últimos 7 dias
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="last_14d">
+                                      <label class="form-check-label" for="exampleRadios4">
+                                        Últimos 14 dias
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="last_30d">
+                                      <label class="form-check-label" for="exampleRadios5">
+                                        Últimos 30 dias
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="this_week_mon_today">
+                                      <label class="form-check-label" for="exampleRadios6">
+                                        Esta semana
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios7" value="last_week_sun_sat">
+                                      <label class="form-check-label" for="exampleRadios7">
+                                        Semana passada
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios8" value="this_month">
+                                      <label class="form-check-label" for="exampleRadios8">
+                                        Este mês
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios9" value="last_month">
+                                      <label class="form-check-label" for="exampleRadios9">
+                                        Mês passado
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios10" value="last_year">
+                                      <label class="form-check-label" for="exampleRadios10">
+                                        Ano passado
+                                      </label>
+                                    </div>
+                                  </li>
+                                  
+                                </ul>
+                                
+                              </div>
+                            </div>
+
+                            <div class="card-footer">
+                              <button type="submit" class="btn btn-primary">Atualizar</button>
+                            </div>
+                          </form>
+
+                        </div>
+                          <!-- End Body -->
+          
+                          <!-- Card Footer -->
+                          
+                          <!-- End Card Footer -->
+                      </div>
+                    </li>
+                    <!-- download button -->
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <!-- Notification -->
+                        <div class="dropdown">
+                          <a class="download"></a>
+                        <button type="button" id="generate-image" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                            <i class="bi bi-cloud-download" style="color: aliceblue;"></i>
+                        </button>
+                        
+            
+                        </div>
+                        <!-- End Notification -->
+                    </li>
+                    <!-- end download button -->
+
+                    <!-- Email button -->
+                    <li class="nav-item">
+                      <!-- Account -->
+                      <div class="dropdown">
+                          <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                            <i class="bi bi-envelope-plus" style="color: aliceblue;"></i>
+                          </a>
+          
+                          <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown">
+                            <div class="card-body card-body-height" style="height: 9rem;">
+                              <a class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                  <div class="flex-shrink-0">
+                                    <i class="bi bi-patch-exclamation-fill"></i>                                  </div>
+                                  <div class="flex-grow-1 text-truncate ms-3">
+                                    <h5 class="mb-0">Em desenvolvimento</h5>
+                                    <p class="card-text text-body">Nossa plataforma está em crescimento, por esse <br> motivo algumas funcionalidade ainda estão indisponiveis. <br>Mas assim que estiverem no ar iremos te avisa!</p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                          <div>
+                      </div>
+                      <!-- End Account -->
+                    </li>
+                    <!-- end Email button -->
+
+                    <!-- Share button -->
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <!-- Apps -->
+                        <div class="dropdown">
+                        <button type="button" class="btn btn-icon btn-ghost-secondary rounded-circle" data-toggle="modal" data-target="#ExemploModalCentralizado">
+                          <i class="bi bi-share" style="color: aliceblue;"></i>  
+                        </button>
+
+                        </div>
+                        <!-- End Apps -->
+                    </li>
+                    <!-- end Share button -->
+
+                    <li class="nav-item">
+                        <!-- Account -->
+                        <div class="dropdown">
+                            <a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="">
+                            <div class="avatar avatar avatar-sm avatar-light avatar-circle">
+                                <span class="avatar-initials" style="color: #32312F;"></span>
+                            </div>
+                            </a>
+            
+                            <div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
+                            <div class="dropdown-item-text">
+                                <div class="d-flex align-items-center">
+                                <div class="avatar avatar avatar-sm avatar-dark avatar-circle">
+                                    <span class="avatar-initials"></span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="mb-0">{{session.username}}</h5>
+                                    <p class="card-text text-body">{{email}}</p>
+                                </div>
+                                </div>
+                            </div>
+            
+                            <div class="dropdown-divider">Dashboard</div>
+                            <div>
+                                
+                            </div>
+                            <a class="dropdown-item" href="{{url_for('profile')}}">Perfil</a>
+                            <a class="dropdown-item" href="#">Settings</a>  
+                
+                            <a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a>
+                            
+                            </div>
+                        </div>
+                        <!-- End Account -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main id="wapper" role="main" class="main">
+
+      <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="TituloModalCentralizado">Compartilhar com um membro da sua organização</h5>
+            </div>
+            <form action="{{compartilha}}" method="post">
+            <div class="modal-body">
+              <div class="mb-3">
+                <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o endereço de e-mail..." required aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+        <div class="content container-fluid">
+
+          <div class="row col-lg-divider">
+            <div class="col-lg-4">
+              <!-- Card -->
+              <div class="text-center">
+                <span class="text-cap text-body">Curtidas na página</span>
+                <span class="d-block display-4 text-dark mb-2">{{page_fans}}</span>
+    
+                <div class="row col-divider">
+                  <div class="col text-end">
+                    <span class="d-block fw-semi-bold text-success">
+                      <i class="bi-graph-up"></i> 12%
+                    </span>
+                    <span class="d-block">change</span>
+                  </div>
+                  <!-- End Col -->
+    
+                  <div class="col text-start">
+                    <span class="d-block fw-semi-bold text-dark">25</span>
+                    <span class="d-block">last week</span>
+                  </div>
+                  <!-- End Col -->
+                </div>
+                <!-- End Row -->
+              </div>
+              <!-- End Card -->
+            </div>
+    
+            <div class="col-lg-4">
+              <!-- Card -->
+              <div class="text-center">
+                <span class="text-cap text-body">Total de cliques</span>
+                <span class="d-block display-4 text-dark mb-2">{{total_actions}}</span>
+    
+                <div class="row col-divider">
+                  <div class="col text-end">
+                    <span class="d-block fw-semi-bold text-success">
+                      <i class="bi-graph-up"></i> 5.6%
+                    </span>
+                    <span class="d-block">change</span>
+                  </div>
+                  <!-- End Col -->
+    
+                  <div class="col text-start">
+                    <span class="d-block fw-semi-bold text-dark">$582.00</span>
+                    <span class="d-block">last week</span>
+                  </div>
+                  <!-- End Col -->
+                </div>
+                <!-- End Row -->
+              </div>
+              <!-- End Card -->
+            </div>
+    
+            <div class="col-lg-4 mb-3">
+              <!-- Card -->
+              <div class="text-center">
+                <span class="text-cap text-body">Engajamento</span>
+                <span class="d-block display-4 text-dark mb-2">{{total_engajamento}}</span>
+    
+                <div class="row col-divider">
+                  <div class="col text-end">
+                    <span class="d-block fw-semi-bold text-danger">
+                      <i class="bi-graph-down"></i> 2.3%
+                    </span>
+                    <span class="d-block">change</span>
+                  </div>
+                  <!-- End Col -->
+    
+                  <div class="col text-start">
+                    <span class="d-block fw-semi-bold text-dark">7</span>
+                    <span class="d-block">last week</span>
+                  </div>
+                  <!-- End Col -->
+                </div>
+                <!-- End Row -->
+              </div>
+              <!-- End Card -->
+            </div>
+          </div>
+          
+          <div class="row mt-5">
+            
+            <div class="col-sm-4 mb-3 ">
+              <div class="card h-100" style="border-radius: 0px;">
+                <!-- Header -->
+                <div class="card-header card-header-content-between">
+                  <h4 class="card-header-title">Principais fontes das sessões</h4>    
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body-height">
+                  <!-- Table -->
+                  <div id="">
+
+                  </div>
+                  <!-- End Table -->
+                </div>
+                <!-- End Body -->
+              </div>
+            </div>
+
+            <div class="col-lg-8 mb-3 ">
+              <div class="card h-100" style="border-radius: 0px;">
+                <!-- Header -->
+                <div class="card-header card-header-content-between">
+                  <h4 class="card-header-title">Sessões vs Usuários</h4>
+                </div>
+                <!-- End Header -->
+    
+                <!-- Body -->
+                <div class="card-body-height">
+                  <!-- Table -->
+                  <div id="chart">
+
+                  </div>
+                  <!-- End Table -->
+                </div>
+                <!-- End Body -->
+              </div>
+            </div>
+          </div>
+          
+
+
+          <div id="cardFullScreenEg" class="card overflow-hidden mb-3 mb-lg-5" style="border-radius: 0px;">
+            <!-- Header -->
+            <div class="card-header card-header-content-between">
+              <h4 class="card-header-title">Cidades</h4>
+            </div>
+            <!-- End Header -->
+    
+            <hr class="my-0">
+    
+            <!-- Body -->
+            <div class="card-body" style="border-radius: 0px;">
+              <div class="row no-gutters">
+                <div class="col-lg-7">
+                  <!-- JSVector Map -->
+                  <div style="height: 20.5rem;">
+                    <div id="world-map" style="height: 20.5rem;"></div>
+                  <!-- End JSVector Map -->
+                  </div>
+                </div>
+                <!-- End Col -->
+    
+                <div class="col-lg-5 mb-4">
+                  <!-- Table -->
+                  <div class="table-responsive">
+                    <table class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+                      <thead>
+                        <tr>
+                          <th class="border-top-0">Cidade</th>
+                          <th class="border-top-0">Visitas</th>
+                          <th class="border-top-0">% Novas sessões</th>
+                          <th class="border-top-0">Taxa de rejeição</th>
+                        </tr>
+                      </thead>
+    
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center">
+
+                              <div class="flex-grow-1 ms-2">USA</div>
+                            </div>
+                          </td>
+                          <td>10,013</td>
+                          <td>$5,361</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              73.2% <i class="bi-graph-up text-success ms-1"></i>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- End Table -->
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+            </div>
+            <!-- End Body -->
+          </div>
+
+          <div class="card" style="border-radius: 0px;">
+            <div class="row col-lg-divider">
+              <div class="col-lg-6">
+                <!-- Body -->
+                <div class="card-body">
+                  <h4>Total sales <i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Net sales (gross sales minus discounts and returns) plus taxes and shipping. Includes orders from all sales channels." aria-label="Net sales (gross sales minus discounts and returns) plus taxes and shipping. Includes orders from all sales channels."></i></h4>
+    
+                  <div class="row align-items-sm-center mt-4 mt-sm-0 mb-5">
+                    <div class="col-sm mb-3 mb-sm-0">
+                      <span class="display-5 text-dark me-2">$597,820.75</span>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-sm-auto">
+                      <span class="h3 text-success">
+                        <i class="bi-graph-up"></i> 25.9%
+                      </span>
+                      <span class="d-block">— 1,347,935 orders <span class="badge bg-soft-dark text-dark rounded-pill ms-1">+$97k today</span></span>
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <!-- Bar Chart -->
+                  <div class="chartjs-custom mb-4" style="height: 18rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="ecommerce-overview-1" class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                              &quot;type&quot;: &quot;line&quot;,
+                              &quot;data&quot;: {
+                                 &quot;labels&quot;: [&quot;1AM&quot;,&quot;2AM&quot;,&quot;3AM&quot;,&quot;4AM&quot;,&quot;5AM&quot;,&quot;6AM&quot;,&quot;7AM&quot;,&quot;8AM&quot;,&quot;9AM&quot;,&quot;10AM&quot;],
+                                 &quot;datasets&quot;: [{
+                                  &quot;data&quot;: [200, 200, 240, 350, 200, 350, 200, 250, 285, 220],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                },
+                                {
+                                  &quot;data&quot;: [150, 230, 382, 204, 269, 290, 200, 250, 200, 225],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                }]
+                              },
+                              &quot;options&quot;: {
+                                 &quot;scales&quot;: {
+                                    &quot;yAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;color&quot;: &quot;#e7eaf3&quot;,
+                                        &quot;drawBorder&quot;: false,
+                                        &quot;zeroLineColor&quot;: &quot;#e7eaf3&quot;
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;beginAtZero&quot;: true,
+                                        &quot;stepSize&quot;: 100,
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 10,
+                                        &quot;prefix&quot;: &quot;$&quot;,
+                                        &quot;postfix&quot;: &quot;k&quot;
+                                      }
+                                    }],
+                                    &quot;xAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;display&quot;: false,
+                                        &quot;drawBorder&quot;: false
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 5
+                                      }
+                                    }]
+                                },
+                                &quot;tooltips&quot;: {
+                                  &quot;prefix&quot;: &quot;$&quot;,
+                                  &quot;postfix&quot;: &quot;k&quot;,
+                                  &quot;hasIndicator&quot;: true,
+                                  &quot;mode&quot;: &quot;index&quot;,
+                                  &quot;intersect&quot;: false,
+                                  &quot;lineMode&quot;: true,
+                                  &quot;lineWithLineColor&quot;: &quot;rgba(19, 33, 68, 0.075)&quot;
+                                },
+                                &quot;hover&quot;: {
+                                  &quot;mode&quot;: &quot;nearest&quot;,
+                                  &quot;intersect&quot;: true
+                                }
+                              }
+                            }" width="900" height="576" style="display: block; width: 450px; height: 288px;">
+                    </canvas>
+                  </div>
+                  <!-- End Bar Chart -->
+    
+                  <!-- Legend Indicators -->
+                  <div class="row justify-content-center">
+                    <div class="col-auto">
+                      <span class="legend-indicator"></span> Yesterday
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-auto">
+                      <span class="legend-indicator bg-primary"></span> Today
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Legend Indicators -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Col -->
+    
+              <div class="col-lg-6">
+                <!-- Body -->
+                <div class="card-body">
+                  <h4>Visitors</h4>
+    
+                  <div class="row align-items-sm-center mt-4 mt-sm-0 mb-5">
+                    <div class="col-sm mb-3 mb-sm-0">
+                      <span class="display-5 text-dark me-2">831,071</span>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-sm-auto">
+                      <span class="h3 text-danger">
+                        <i class="bi-graph-down"></i> 16%
+                      </span>
+                      <span class="d-block">— 467,001 unique <span class="badge bg-soft-dark text-dark rounded-pill ms-1">+7k today</span></span>
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <!-- Bar Chart -->
+                  <div class="chartjs-custom mb-4" style="height: 18rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="ecommerce-overview-2" class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                              &quot;type&quot;: &quot;line&quot;,
+                              &quot;data&quot;: {
+                                 &quot;labels&quot;: [&quot;1AM&quot;,&quot;2AM&quot;,&quot;3AM&quot;,&quot;4AM&quot;,&quot;5AM&quot;,&quot;6AM&quot;,&quot;7AM&quot;,&quot;8AM&quot;,&quot;9AM&quot;,&quot;10AM&quot;],
+                                 &quot;datasets&quot;: [{
+                                  &quot;data&quot;: [20, 20, 24, 15, 30, 35, 20, 28, 18, 16],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                },
+                                {
+                                  &quot;data&quot;: [15, 23, 18, 20, 36, 29, 20, 22, 20, 22],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                }]
+                              },
+                              &quot;options&quot;: {
+                                 &quot;scales&quot;: {
+                                    &quot;yAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;color&quot;: &quot;#e7eaf3&quot;,
+                                        &quot;drawBorder&quot;: false,
+                                        &quot;zeroLineColor&quot;: &quot;#e7eaf3&quot;
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;beginAtZero&quot;: true,
+                                        &quot;stepSize&quot;: 10,
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 10,
+                                        &quot;postfix&quot;: &quot;k&quot;
+                                      }
+                                    }],
+                                    &quot;xAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;display&quot;: false,
+                                        &quot;drawBorder&quot;: false
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 5
+                                      }
+                                    }]
+                                },
+                                &quot;tooltips&quot;: {
+                                  &quot;postfix&quot;: &quot;k&quot;,
+                                  &quot;hasIndicator&quot;: true,
+                                  &quot;mode&quot;: &quot;index&quot;,
+                                  &quot;intersect&quot;: false,
+                                  &quot;lineMode&quot;: true,
+                                  &quot;lineWithLineColor&quot;: &quot;rgba(19, 33, 68, 0.075)&quot;
+                                },
+                                &quot;hover&quot;: {
+                                  &quot;mode&quot;: &quot;nearest&quot;,
+                                  &quot;intersect&quot;: true
+                                }
+                              }
+                            }" width="900" height="576" style="display: block; width: 450px; height: 288px;">
+                    </canvas>
+                  </div>
+                  <!-- End Bar Chart -->
+    
+                  <!-- Legend Indicators -->
+                  <div class="row justify-content-center">
+                    <div class="col-auto">
+                      <span class="legend-indicator"></span> Yesterday
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-auto">
+                      <span class="legend-indicator bg-primary"></span> Today
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Legend Indicators -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+    
+            <hr>
+    
+            <div class="row col-lg-divider">
+              <div class="col-lg-6">
+                <!-- Body -->
+                <div class="card-body">
+                  <h4>Total orders</h4>
+    
+                  <div class="row align-items-sm-center mt-4 mt-sm-0 mb-5">
+                    <div class="col-sm mb-3 mb-sm-0">
+                      <span class="display-5 text-dark me-2">1,348,935</span>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-sm-auto">
+                      <span class="h3 text-success">
+                        <i class="bi-graph-up"></i> 4.7%
+                      </span>
+                      <span class="d-block">— orders over time <span class="badge bg-soft-dark text-dark rounded-pill ms-1">+5k today</span></span>
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <!-- Bar Chart -->
+                  <div class="chartjs-custom mb-4" style="height: 18rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="ecommerce-overview-3" class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                              &quot;type&quot;: &quot;line&quot;,
+                              &quot;data&quot;: {
+                                 &quot;labels&quot;: [&quot;1AM&quot;,&quot;2AM&quot;,&quot;3AM&quot;,&quot;4AM&quot;,&quot;5AM&quot;,&quot;6AM&quot;,&quot;7AM&quot;,&quot;8AM&quot;,&quot;9AM&quot;,&quot;10AM&quot;],
+                                 &quot;datasets&quot;: [{
+                                  &quot;data&quot;: [15, 26, 29, 20, 23, 38, 20, 30, 20, 22],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                },
+                                {
+                                  &quot;data&quot;: [20, 20, 15, 18, 20, 24, 35, 20, 35, 22],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                }]
+                              },
+                              &quot;options&quot;: {
+                                 &quot;scales&quot;: {
+                                    &quot;yAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;color&quot;: &quot;#e7eaf3&quot;,
+                                        &quot;drawBorder&quot;: false,
+                                        &quot;zeroLineColor&quot;: &quot;#e7eaf3&quot;
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;beginAtZero&quot;: true,
+                                        &quot;stepSize&quot;: 10,
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 10,
+                                        &quot;postfix&quot;: &quot;k&quot;
+                                      }
+                                    }],
+                                    &quot;xAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;display&quot;: false,
+                                        &quot;drawBorder&quot;: false
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 5
+                                      }
+                                    }]
+                                },
+                                &quot;tooltips&quot;: {
+                                  &quot;postfix&quot;: &quot;k&quot;,
+                                  &quot;hasIndicator&quot;: true,
+                                  &quot;mode&quot;: &quot;index&quot;,
+                                  &quot;intersect&quot;: false,
+                                  &quot;lineMode&quot;: true,
+                                  &quot;lineWithLineColor&quot;: &quot;rgba(19, 33, 68, 0.075)&quot;
+                                },
+                                &quot;hover&quot;: {
+                                  &quot;mode&quot;: &quot;nearest&quot;,
+                                  &quot;intersect&quot;: true
+                                }
+                              }
+                            }" width="900" height="576" style="display: block; width: 450px; height: 288px;">
+                    </canvas>
+                  </div>
+                  <!-- End Bar Chart -->
+    
+                  <!-- Legend Indicators -->
+                  <div class="row justify-content-center">
+                    <div class="col-auto">
+                      <span class="legend-indicator"></span> Yesterday
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-auto">
+                      <span class="legend-indicator bg-primary"></span> Today
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Legend Indicators -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Col -->
+    
+              <div class="col-lg-6">
+                <!-- Body -->
+                <div class="card-body">
+                  <h4>Refunded</h4>
+    
+                  <div class="row align-items-sm-center mt-4 mt-sm-0 mb-5">
+                    <div class="col-sm mb-3 mb-sm-0">
+                      <span class="display-5 text-dark me-2">52,441</span>
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-sm-auto">
+                      <span class="h3 text-success">
+                        <i class="bi-graph-up"></i> 11%
+                      </span>
+                      <span class="d-block">— refunds over time <span class="badge bg-soft-dark text-dark rounded-pill ms-1">+21 today</span></span>
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Row -->
+    
+                  <!-- Bar Chart -->
+                  <div class="chartjs-custom mb-4" style="height: 18rem;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="ecommerce-overview-4" class="js-chart chartjs-render-monitor" data-hs-chartjs-options="{
+                              &quot;type&quot;: &quot;line&quot;,
+                              &quot;data&quot;: {
+                                 &quot;labels&quot;: [&quot;1AM&quot;,&quot;2AM&quot;,&quot;3AM&quot;,&quot;4AM&quot;,&quot;5AM&quot;,&quot;6AM&quot;,&quot;7AM&quot;,&quot;8AM&quot;,&quot;9AM&quot;,&quot;10AM&quot;],
+                                 &quot;datasets&quot;: [{
+                                  &quot;data&quot;: [10, 20, 22, 15, 20, 15, 20, 19, 14, 15],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#377dff&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                },
+                                {
+                                  &quot;data&quot;: [15, 13, 18, 10, 16, 19, 15, 14, 10, 26],
+                                  &quot;backgroundColor&quot;: &quot;transparent&quot;,
+                                  &quot;borderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;borderWidth&quot;: 2,
+                                  &quot;pointRadius&quot;: 0,
+                                  &quot;hoverBorderColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBackgroundColor&quot;: &quot;#e7eaf3&quot;,
+                                  &quot;pointBorderColor&quot;: &quot;#fff&quot;,
+                                  &quot;pointHoverRadius&quot;: 0
+                                }]
+                              },
+                              &quot;options&quot;: {
+                                 &quot;scales&quot;: {
+                                    &quot;yAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;color&quot;: &quot;#e7eaf3&quot;,
+                                        &quot;drawBorder&quot;: false,
+                                        &quot;zeroLineColor&quot;: &quot;#e7eaf3&quot;
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;beginAtZero&quot;: true,
+                                        &quot;stepSize&quot;: 10,
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 10
+                                      }
+                                    }],
+                                    &quot;xAxes&quot;: [{
+                                      &quot;gridLines&quot;: {
+                                        &quot;display&quot;: false,
+                                        &quot;drawBorder&quot;: false
+                                      },
+                                      &quot;ticks&quot;: {
+                                        &quot;fontSize&quot;: 12,
+                                        &quot;fontColor&quot;: &quot;#97a4af&quot;,
+                                        &quot;fontFamily&quot;: &quot;Open Sans, sans-serif&quot;,
+                                        &quot;padding&quot;: 5
+                                      }
+                                    }]
+                                },
+                                &quot;tooltips&quot;: {
+                                  &quot;hasIndicator&quot;: true,
+                                  &quot;mode&quot;: &quot;index&quot;,
+                                  &quot;intersect&quot;: false,
+                                  &quot;lineMode&quot;: true,
+                                  &quot;lineWithLineColor&quot;: &quot;rgba(19, 33, 68, 0.075)&quot;
+                                },
+                                &quot;hover&quot;: {
+                                  &quot;mode&quot;: &quot;nearest&quot;,
+                                  &quot;intersect&quot;: true
+                                }
+                              }
+                            }" width="900" height="576" style="display: block; width: 450px; height: 288px;">
+                    </canvas>
+                  </div>
+                  <!-- End Bar Chart -->
+    
+                  <!-- Legend Indicators -->
+                  <div class="row justify-content-center">
+                    <div class="col-auto">
+                      <span class="legend-indicator"></span> Yesterday
+                    </div>
+                    <!-- End Col -->
+    
+                    <div class="col-auto">
+                      <span class="legend-indicator bg-primary"></span> Today
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Legend Indicators -->
+                </div>
+                <!-- End Body -->
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+          </div>
+
+        </div>
+                
+    </main>
+
+</body>
+
+<script src="../static/js/download.js"></script>
+<script type="text/javascript">
+  $("#btnPrint").live("click", function () {
+    var divContents = $("body").html();
+    var printWindow = window.open('', '', 'height=400,width=800');
+    printWindow.document.write('<html><head><title>Html to PDF</title>');
+    printWindow.document.write('</head><body >');
+    printWindow.document.write(text);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  });
+</script>
+
+<script>
+        var options = {
+          series: [{
+          name: 'Website Blog',
+          type: 'column',
+          tools: {
+            show: false
+          },
+          data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+        }, {
+          name: 'Social Media',
+          type: 'line',
+          data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+        }],
+
+          chart: {
+          height: 319,
+          type: 'line',
+          toolbar: {
+            show: false,
+          },
+          
+        },
+        stroke: {
+          width: [0, 4]
+        },
+
+        dataLabels: {
+          enabled: true,
+          enabledOnSeries: [1]
+        },
+        labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+        xaxis: {
+          type: 'datetime'
+        },
+        yaxis: [{
+          title: {
+            text: 'Website Blog',
+          },
+        
+        }, {
+          opposite: true,
+          title: {
+            text: 'Social Media'
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+</script>
+
+<!-- mapa -->
+<script>
+  $(function(){
+    var gdpData = {
+    "AF": 1,
+    "AL": 10,
+    "DZ": 4,
+    "US": 20,
+    "BR":300
+        }
+    $('#world-map').vectorMap({
+      map: 'world_mill',
+      backgroundColor: '#F8F8F8 ',
+      series: {
+        regions: [{
+          values: gdpData,
+          scale: ['#C8EEFF', '#0071A4'],
+          normalizeFunction: 'polynomial'
+        }]
+      },
+      onRegionTipShow: function(e, el, code){
+        el.html(el.html()+' (GDP - '+gdpData[code]+')');
+      }
+      });
+  });
+</script>
+</html>
