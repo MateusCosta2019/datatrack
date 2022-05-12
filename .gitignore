@@ -5,5 +5,5 @@ application/config/
 **/2Factors_login
 **/application/config
 **/client_secret_10241093559.json
-**/application/client_secret_10241093559.json
-**application/analytics.dat
+client_secret_10241093559.json
+analytics.dat
